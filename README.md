@@ -54,6 +54,8 @@ Desenvolver uma solução para o controle de fluxo de caixa de um pequeno comér
 
 O sistema de Fluxo de Caixa Diário foi projetado com base em uma arquitetura escalável e resiliente, utilizando **dados sintéticos e analíticos**. Essa abordagem segue os princípios de separação de responsabilidades e adoção de boas práticas como **CQRS (Command Query Responsibility Segregation)**.
 
+![](./images/diagramasolucao.png)
+
 ### **Componentes Principais**
 O diagrama apresenta os principais componentes e a interação entre eles:
 
