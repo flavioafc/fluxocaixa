@@ -163,7 +163,7 @@ O diagrama apresenta os principais componentes e a interação entre eles:
   - Isolamento de responsabilidades permite otimização específica para gravação (transacional) e leitura (analítico).
   - Garantia de alta performance para consultas frequentes sem impactar as operações de gravação.
 - **Trade-offs**: Maior custo operacional e necessidade de sincronização entre os bancos.
-- **Leia o documento completo**:  [ADR-002: Decisão de separação de dados transacionais de analíticos](./docs/adrs/ADR-002-Separacao-Dados-Transacional-e-Analitico.md)
+- **Leia o documento completo**:  [ADR-002: Decisão de separação de dados transacionais de analíticos usando CQRS](./docs/adrs/ADR-002-Separacao-Dados-Transacional-e-Analitico.md)
 
 ### Decisão 3: Cache para relatórios frequentes
 - **Contexto**: Relatórios consolidados são consultados frequentemente.
