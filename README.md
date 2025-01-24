@@ -28,13 +28,6 @@ Ele foi desenvolvido apenas para fins de aprendizado e demonstração de conceit
 
 ## 1. Requisitos de Negócio
 ### Objetivo
-Desenvolver uma solução para o controle de fluxo de caixa de um pequeno comércio...
-
-*(Continua o restante do conteúdo do README como no exemplo anterior.)*
-
-
-## 1. Requisitos de Negócio
-### Objetivo
 Desenvolver uma solução para o controle de fluxo de caixa de um pequeno comércio, permitindo o registro de lançamentos diários (débitos e créditos) e a geração de relatórios consolidados com o saldo diário.
 
 ### Funcionalidades Principais
