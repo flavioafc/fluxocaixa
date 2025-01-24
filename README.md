@@ -157,14 +157,18 @@ O diagrama apresenta os principais componentes e a interação entre eles:
   - Melhor alinhamento com requisitos de escalabilidade e resiliência.
   - Desacoplamento entre registro de lançamentos e processamento de consolidados.
 - **Trade-offs**: Aumento da complexidade operacional.
+- **Leia o documento completo**:  [ADR-001: Decisão da adoção de microserviços](./docs/adrs/ADR-001-Decisao-Adotar-Microservicos.md)
 
-### Decisão 2: Azure Service Bus para comunicação assíncrona
-- **Contexto**: O serviço de consolidado diário não pode impactar o registro de lançamentos.
-- **Decisão**: Usar o Azure Service Bus para comunicação entre os serviços.
+- ### Decisão 2: Separação de dados Transacionais e Analíticos
+- **Contexto**: Separar os dados transacionais (lançamentos) dos analíticos (saldos consolidados) para atender requisitos de escalabilidade, performance e auditabilidade.
+- **Decisão**: Utilizar dois bancos de dados distintos:
+  - Banco Transacional: Para gravação e armazenamento de lançamentos detalhados.
+  - Banco Analítico: Para cálculo e consulta de saldos consolidados.
 - **Justificativa**:
-  - Garantia de entrega de mensagens mesmo em caso de falha temporária de um serviço.
-  - Melhor escalabilidade e processamento assíncrono.
-- **Trade-offs**: Custo adicional para o uso do Service Bus.
+  - Isolamento de responsabilidades permite otimização específica para gravação (transacional) e leitura (analítico).
+  - Garantia de alta performance para consultas frequentes sem impactar as operações de gravação.
+- **Trade-offs**: Maior custo operacional e necessidade de sincronização entre os bancos.
+- **Leia o documento completo**:  [ADR-001: Decisão da adoção de microserviços](./docs/adrs/ADR-002-Separacao-Dados-Transacional-e-Analitico.md)
 
 ### Decisão 3: Cache para relatórios frequentes
 - **Contexto**: Relatórios consolidados são consultados frequentemente.
@@ -173,8 +177,16 @@ O diagrama apresenta os principais componentes e a interação entre eles:
   - Reduz a carga no banco de dados.
   - Melhora o desempenho das consultas.
 - **Trade-offs**: Necessidade de manutenção adicional para sincronizar o cache.
+- **Leia o documento completo**:  [ADR-003: Decisão Sobre Cache para relatórios frequentes](./docs/adrs/ADR-003-Decisao-Sobre-Chache-Para-Relatorios-Diarios.md)
 
-*(Adicione outras ADRs relevantes.)*
+### Decisão 4: Azure Service Bus para comunicação assíncrona
+- **Contexto**: O serviço de consolidado diário não pode impactar o registro de lançamentos.
+- **Decisão**: Usar o Azure Service Bus para comunicação entre os serviços.
+- **Justificativa**:
+  - Garantia de entrega de mensagens mesmo em caso de falha temporária de um serviço.
+  - Melhor escalabilidade e processamento assíncrono.
+- **Trade-offs**: Custo adicional para o uso do Service Bus.
+- **Leia o documento completo**:  [ADR-004: Decisão Sobre o Azure Service Bus para Comunicação Assíncrona](./docs/adrs/ADR-004-Decisao-Sobre-Azure-Service-Bus.md)
 
 ---
 
