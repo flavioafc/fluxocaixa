@@ -8,8 +8,10 @@
    - [Diagrama de Componentes](#diagrama-de-componentes)
 3. [ADRs (Arquitetural Decision Records)](#3-adrs-arquitetural-decision-records)
    - [Decisão 1: Microsserviços como padrão arquitetural](#decisão-1-microsserviços-como-padrão-arquitetural)
-   - [Decisão 2: Azure Service Bus para comunicação assíncrona](#decisão-2-azure-service-bus-para-comunicação-assíncrona)
-   - [Decisão 3: Cache para relatórios frequentes](#decisão-3-cache-para-relatórios-frequentes)
+   - [ADR-001: Separação de Dados Transacional e Analítico](./docs/adrs/ADR-001-Separacao-Dados-Transacional-e-Analitico.md)  
+   - [ADR-002: Decisão Sobre Cache Para Relatórios](./docs/adrs/ADR-002-Decisao-Sobre-Cache-Para-Relatorios.md)  
+
+
 4. [Como Executar a Solução](#4-como-executar-a-solução)
    - [Pré-requisitos](#pré-requisitos)
    - [Passo a Passo](#passo-a-passo)
