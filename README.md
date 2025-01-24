@@ -10,9 +10,6 @@ Ele foi desenvolvido apenas para fins de aprendizado e demonstração de conceit
 ## Índice
 1. [Requisitos de Negócio](#1-requisitos-de-negócio)
 2. [Desenho da Solução](#2-desenho-da-solução)
-   - [Arquitetura Geral](#arquitetura-geral)
-   - [Fluxo de Comunicação](#fluxo-de-comunicação)
-   - [Diagrama de Componentes](#diagrama-de-componentes)
 3. [ADRs (Arquitetural Decision Records)](#3-adrs-arquitetural-decision-records)
    - [ADR-001: Microsserviços como padrão arquitetural](./docs/adrs/ADR-001-Decisao-Adotar-Microservicos.md)
    - [ADR-002: Separação de Dados Transacional e Analítico](./docs/adrs/ADR-002-Separacao-Dados-Transacional-e-Analitico.md)  
@@ -55,30 +52,97 @@ Desenvolver uma solução para o controle de fluxo de caixa de um pequeno comér
 
 ## 2. Desenho da Solução
 
-### Arquitetura Geral
-A solução utiliza uma arquitetura baseada em microsserviços, com os seguintes componentes principais:
+O sistema de Fluxo de Caixa Diário foi projetado com base em uma arquitetura escalável e resiliente, utilizando **dados sintéticos e analíticos**. Essa abordagem segue os princípios de separação de responsabilidades e adoção de boas práticas como **CQRS (Command Query Responsibility Segregation)**.
 
-1. **Serviço de Controle de Lançamentos**:
-   - API REST para registro e consulta de lançamentos.
-   - Banco de dados relacional (Azure SQL).
-   - Publicação de eventos no Azure Service Bus.
+### **Componentes Principais**
+O diagrama apresenta os principais componentes e a interação entre eles:
 
-2. **Serviço de Consolidado Diário**:
-   - Worker Service que consome eventos de lançamentos.
-   - Cálculo do saldo diário consolidado.
-   - Armazenamento dos saldos consolidados em Azure SQL ou Azure Table Storage.
+1. **Usuários e Administradores**:
+   - **Usuário do Comércio**: Registra lançamentos no fluxo de caixa (créditos e débitos).
+   - **Admin do Comércio**: Consulta relatórios consolidados e monitora o sistema.
 
-3. **Relatórios**:
-   - APIs para consulta de relatórios de lançamentos e saldos consolidados.
-   - Cache distribuído (Azure Cache for Redis) para melhorar a performance.
+2. **Camada de Segurança (Firewall e NSG)**:
+   - Protege os serviços internos do sistema contra acessos não autorizados.
+   - Todas as requisições passam por essa camada antes de acessar os serviços internos.
 
-### Fluxo de Comunicação
-1. O lançamento é registrado via API e salvo no banco de dados.
-2. Um evento é publicado no Azure Service Bus.
-3. O Worker Service processa o evento, calcula o saldo diário e atualiza os dados consolidados.
+3. **Serviços Internos**:
+   - **Serviço de Controle de Lançamentos (API REST)**:
+     - Registra os lançamentos e os persiste no **Banco Transacional (Azure SQL)**.
+     - Publica eventos de novos lançamentos no **Azure Service Bus** para comunicação assíncrona.
+   - **Serviço de Consolidado Diário (Worker Service)**:
+     - Processa eventos de lançamentos enviados pelo **Service Bus**.
+     - Calcula os saldos consolidados diários e os armazena no **Banco Analítico (Azure SQL)**.
+   - **Serviço de Relatórios (API REST)**:
+     - Fornece relatórios com dados analíticos (saldos consolidados) e dados detalhados (lançamentos).
+     - Usa o **Redis Cache** para acelerar consultas frequentes, como saldos consolidados.
+   - **Geração de Relatório Diário (Azure Function)**:
+     - Um disparador baseado em cron que solicita ao Serviço de Relatórios a geração automática de relatórios diários.
 
-### Diagrama de Componentes
-*(Adicione aqui um diagrama de componentes mostrando a interação entre os serviços, o Service Bus e os bancos de dados.)*
+4. **Infraestrutura de Suporte**:
+   - **Banco Transacional (Azure SQL)**:
+     - Armazena os lançamentos detalhados, garantindo consistência e auditabilidade.
+   - **Banco Analítico (Azure SQL)**:
+     - Otimizado para consultas rápidas, armazenando os saldos consolidados calculados.
+   - **Azure Cache for Redis**:
+     - Reduz a latência das consultas de saldos consolidados ao armazenar os resultados mais recentes na memória.
+   - **Azure Service Bus**:
+     - Gerencia a comunicação assíncrona entre o Serviço de Controle de Lançamentos e o Serviço de Consolidado Diário.
+   - **Azure Key Vault**:
+     - Gerencia segredos como strings de conexão e credenciais de forma segura.
+   - **Azure AD (Autenticação e Autorização)**:
+     - Fornece autenticação baseada em **OAuth 2.0** e tokens JWT para garantir que apenas usuários autorizados acessem os serviços.
+
+---
+
+### **Fluxo de Dados**
+
+1. **Registro de Lançamentos**:
+   - O usuário registra lançamentos (créditos ou débitos) via **Serviço de Controle de Lançamentos**.
+   - Esses lançamentos são:
+     - Persistidos no **Banco Transacional**.
+     - Publicados no **Azure Service Bus** como eventos para processamento posterior.
+
+2. **Processamento de Consolidação**:
+   - O **Serviço de Consolidado Diário** consome os eventos do **Azure Service Bus**.
+   - Calcula os saldos diários consolidados e os persiste no **Banco Analítico**.
+
+3. **Consulta de Relatórios**:
+   - O administrador solicita relatórios via **Serviço de Relatórios**.
+   - O sistema:
+     - Primeiro tenta retornar dados do **Redis Cache** para acelerar a consulta.
+     - Caso o cache não tenha os dados, consulta o **Banco Analítico** para consolidado ou o **Banco Transacional** para dados detalhados.
+
+4. **Geração de Relatórios Diários**:
+   - A **Azure Function** é disparada em horários definidos para gerar relatórios automaticamente, solicitando dados ao Serviço de Relatórios.
+
+---
+
+### **Destaques da Arquitetura**
+
+1. **Escalabilidade**:
+   - Cada componente pode ser escalado de forma independente para lidar com aumentos de carga.
+   - Exemplo: O **Service Bus** desacopla os serviços de controle de lançamentos e consolidação.
+
+2. **Resiliência**:
+   - O uso de filas (Service Bus) e cache (Redis) garante que o sistema continue funcionando mesmo em cenários de alta carga.
+
+3. **Desempenho**:
+   - Consultas frequentes de saldos consolidados são aceleradas pelo Redis, reduzindo a latência e o impacto no banco de dados.
+
+4. **Segurança**:
+   - O **Azure Key Vault** protege segredos críticos, como strings de conexão.
+   - A autenticação baseada em **Azure AD** garante que apenas usuários autorizados acessem os serviços.
+
+---
+
+### **Benefícios da Solução**
+- **Isolamento de Responsabilidades**:
+  - A separação em serviços distintos melhora a organização e facilita a manutenção.
+- **Otimização de Recursos**:
+  - Dados transacionais e analíticos são armazenados separadamente, permitindo otimização específica para cada tipo de carga.
+- **Alta Disponibilidade**:
+  - O uso de padrões como CQRS, filas e cache aumenta a robustez e escalabilidade do sistema.
+
 
 ---
 
