@@ -11,11 +11,6 @@ Ele foi desenvolvido apenas para fins de aprendizado e demonstração de conceit
 1. [Requisitos de Negócio](#1-requisitos-de-negócio)
 2. [Desenho da Solução](#2-desenho-da-solução)
 3. [ADRs (Arquitetural Decision Records)](#3-adrs-arquitetural-decision-records)
-   - [ADR-001: Microsserviços como padrão arquitetural](./docs/adrs/ADR-001-Decisao-Adotar-Microservicos.md)
-   - [ADR-002: Separação de Dados Transacional e Analítico](./docs/adrs/ADR-002-Separacao-Dados-Transacional-e-Analitico.md)  
-   - [ADR-003: Decisão Sobre Cache Para Relatórios](./docs/adrs/ADR-003-Decisao-Sobre-Cache-Para-Relatorios-Diarios.md)  
-
-
 4. [Como Executar a Solução](#4-como-executar-a-solução)
    - [Pré-requisitos](#pré-requisitos)
    - [Passo a Passo](#passo-a-passo)
@@ -168,7 +163,7 @@ O diagrama apresenta os principais componentes e a interação entre eles:
   - Isolamento de responsabilidades permite otimização específica para gravação (transacional) e leitura (analítico).
   - Garantia de alta performance para consultas frequentes sem impactar as operações de gravação.
 - **Trade-offs**: Maior custo operacional e necessidade de sincronização entre os bancos.
-- **Leia o documento completo**:  [ADR-001: Decisão da adoção de microserviços](./docs/adrs/ADR-002-Separacao-Dados-Transacional-e-Analitico.md)
+- **Leia o documento completo**:  [ADR-002: Decisão da adoção de microserviços](./docs/adrs/ADR-002-Separacao-Dados-Transacional-e-Analitico.md)
 
 ### Decisão 3: Cache para relatórios frequentes
 - **Contexto**: Relatórios consolidados são consultados frequentemente.
