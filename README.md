@@ -172,7 +172,7 @@ O diagrama apresenta os principais componentes e a interação entre eles:
   - Reduz a carga no banco de dados.
   - Melhora o desempenho das consultas.
 - **Trade-offs**: Necessidade de manutenção adicional para sincronizar o cache.
-- **Leia o documento completo**:  [ADR-003: Decisão Sobre Cache para relatórios frequentes](./docs/adrs/ADR-003-Decisao-Sobre-Chache-Para-Relatorios-Diarios.md)
+- **Leia o documento completo**:  [ADR-003: Decisão Sobre Cache para relatórios frequentes](./docs/adrs/ADR-003-Decisao-Sobre-Cache-Para-Relatorios-Diarios.md)
 
 ### Decisão 4: Azure Service Bus para comunicação assíncrona
 - **Contexto**: O serviço de consolidado diário não pode impactar o registro de lançamentos.
