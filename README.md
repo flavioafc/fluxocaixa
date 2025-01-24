@@ -30,6 +30,9 @@ Ele foi desenvolvido apenas para fins de aprendizado e demonstração de conceit
 ### Objetivo
 Desenvolver uma solução para o controle de fluxo de caixa de um pequeno comércio, permitindo o registro de lançamentos diários (débitos e créditos) e a geração de relatórios consolidados com o saldo diário.
 
+### Diagrama do fluxo
+![](./images/fluxodenegocio.png)
+
 ### Funcionalidades Principais
 - **Registro de Lançamentos**:
   - Registrar créditos e débitos com descrição, data e hora.
