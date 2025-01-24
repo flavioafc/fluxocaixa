@@ -1,4 +1,28 @@
-# Fluxo de Caixa Diário
+# Fluxo de Caixa Diário - Solução Arquitetural
+
+## Índice
+1. [Requisitos de Negócio](#1-requisitos-de-negócio)
+2. [Desenho da Solução](#2-desenho-da-solução)
+   - [Arquitetura Geral](#arquitetura-geral)
+   - [Fluxo de Comunicação](#fluxo-de-comunicação)
+   - [Diagrama de Componentes](#diagrama-de-componentes)
+3. [ADRs (Arquitetural Decision Records)](#3-adrs-arquitetural-decision-records)
+   - [Decisão 1: Microsserviços como padrão arquitetural](#decisão-1-microsserviços-como-padrão-arquitetural)
+   - [Decisão 2: Azure Service Bus para comunicação assíncrona](#decisão-2-azure-service-bus-para-comunicação-assíncrona)
+   - [Decisão 3: Cache para relatórios frequentes](#decisão-3-cache-para-relatórios-frequentes)
+4. [Como Executar a Solução](#4-como-executar-a-solução)
+   - [Pré-requisitos](#pré-requisitos)
+   - [Passo a Passo](#passo-a-passo)
+5. [Observações Finais](#observações-finais)
+
+---
+
+## 1. Requisitos de Negócio
+### Objetivo
+Desenvolver uma solução para o controle de fluxo de caixa de um pequeno comércio...
+
+*(Continua o restante do conteúdo do README como no exemplo anterior.)*
+
 
 ## 1. Requisitos de Negócio
 ### Objetivo
