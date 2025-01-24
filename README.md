@@ -9,7 +9,7 @@
 3. [ADRs (Arquitetural Decision Records)](#3-adrs-arquitetural-decision-records)
    - [ADR-001: Microsserviços como padrão arquitetural](./docs/adrs/ADR-001-Decisao-Adotar-Microservicos.md)
    - [ADR-002: Separação de Dados Transacional e Analítico](./docs/adrs/ADR-002-Separacao-Dados-Transacional-e-Analitico.md)  
-   - [ADR-003: Decisão Sobre Cache Para Relatórios](./docs/adrs/ADR-003-Decisao-Sobre-Cache-Para-Relatorios.md)  
+   - [ADR-003: Decisão Sobre Cache Para Relatórios](./docs/adrs/ADR-003-Decisao-Sobre-Cache-Para-Relatorios-Diarios.md)  
 
 
 4. [Como Executar a Solução](#4-como-executar-a-solução)
