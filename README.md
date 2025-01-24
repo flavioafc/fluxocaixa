@@ -1,5 +1,12 @@
 # Fluxo de Caixa Diário - Solução Arquitetural
 
+## 🚨 Aviso
+
+**Este projeto é uma Prova de Conceito (POC).**  
+Ele foi desenvolvido apenas para fins de aprendizado e demonstração de conceitos arquiteturais, **não sendo solicitado ou pertencente ao trabalho de nenhuma empresa**, e não é recomendado para uso comercial ou em ambientes produtivos.
+
+
+---
 ## Índice
 1. [Requisitos de Negócio](#1-requisitos-de-negócio)
 2. [Desenho da Solução](#2-desenho-da-solução)
