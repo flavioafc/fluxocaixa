@@ -1,0 +1,6 @@
+@ApiControleLancamentos_HostAddress = http://localhost:5116
+
+GET {{ApiControleLancamentos_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
