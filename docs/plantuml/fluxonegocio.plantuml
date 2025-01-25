@@ -1,0 +1,23 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title Fluxo de Negócio - Fluxo de Caixa Diário
+
+actor Usuário as user
+actor Administrador as admin
+
+participant "Registrar Lançamento" as registrar
+participant "Consolidar Saldos Diários" as consolidar
+participant "Gerar Relatórios" as relatorios
+
+user -> registrar: Registrar lançamento\n(Crédito ou Débito)
+registrar -> registrar: Armazena os lançamentos registrados
+
+registrar -> consolidar: Enviar lançamentos para consolidação
+consolidar -> consolidar: Calcular saldo diário consolidado
+
+admin -> relatorios: Consultar saldo diário consolidado
+relatorios -> consolidar: Buscar saldos consolidados
+relatorios -> admin: Retornar saldo consolidado
+
+@enduml
