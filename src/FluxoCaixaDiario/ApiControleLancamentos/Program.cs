@@ -1,6 +1,12 @@
-using ApiControleLancamentos;
-using ApiControleLancamentos.Repositories;
-using ApiControleLancamentos.Services;
+using ApiControleLancamentos.Application.Interfaces;
+using ApiControleLancamentos.Application.UseCases.AtualizarLancamento;
+using ApiControleLancamentos.Application.UseCases.CancelarLancamento;
+using ApiControleLancamentos.Application.UseCases.ListarLancamentos;
+using ApiControleLancamentos.Application.UseCases.RegistrarLancamento;
+using ApiControleLancamentos.Infra.Messaging;
+using ApiControleLancamentos.Infra.Persistence;
+using ApiControleLancamentos.Infra.Persistence.Repositories;
+using ApiControleLancamentos.Infra.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,8 +17,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 // Injeção de dependências
-builder.Services.AddScoped<ILancamentoRepository, LancamentoRepository>();
+
 builder.Services.AddScoped<LancamentoService>();
+builder.Services.AddScoped<RegistrarLancamentoHandler>();
+builder.Services.AddScoped<ListarLancamentosHandler>();
+builder.Services.AddScoped<AtualizarLancamentoHandler>();
+builder.Services.AddScoped<CancelarLancamentoHandler>();
+builder.Services.AddScoped<ILancamentoRepository, LancamentoRepository>();
+builder.Services.AddScoped<IEventPublisher, EventPublisher>();
+
+
+
 
 // Configuração de controllers
 builder.Services.AddControllers();

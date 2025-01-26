@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApiControleLancamentos")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+43dbe232a5083df32beae8fb25e190122d2aa8ee")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a0f335edf414783feb4d297105b69e19c5ab0f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApiControleLancamentos")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApiControleLancamentos")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
