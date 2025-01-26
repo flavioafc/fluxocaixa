@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApiRelatorios")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9a84572ca753417a814c17235dbed35e63fe345")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+43dbe232a5083df32beae8fb25e190122d2aa8ee")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApiRelatorios")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApiRelatorios")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

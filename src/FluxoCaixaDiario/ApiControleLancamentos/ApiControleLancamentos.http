@@ -1,6 +1,45 @@
+# Base URL da API
 @ApiControleLancamentos_HostAddress = http://localhost:5116
 
-GET {{ApiControleLancamentos_HostAddress}}/weatherforecast/
+### Testar o endpoint GET /api/lancamentos (listar todos os lançamentos)
+GET {{ApiControleLancamentos_HostAddress}}/api/lancamentos
 Accept: application/json
 
 ###
+
+### Testar o endpoint GET /api/lancamentos/{id} (buscar um lançamento por ID)
+GET {{ApiControleLancamentos_HostAddress}}/api/lancamentos/1
+Accept: application/json
+
+###
+
+### Testar o endpoint POST /api/lancamentos (criar um novo lançamento)
+POST {{ApiControleLancamentos_HostAddress}}/api/lancamentos
+Content-Type: application/json
+Accept: application/json
+
+{
+  "valor": 130.75,
+  "tipo": 0,
+  "status": 0,
+  "descricao": "Venda de produto"
+}
+
+###
+
+### Testar o endpoint POST com outro lançamento
+POST {{ApiControleLancamentos_HostAddress}}/api/lancamentos
+Content-Type: application/json
+Accept: application/json
+
+{
+  "valor": -50.00,
+  "tipo": "Debito",
+  "descricao": "Compra de material"
+}
+
+###
+
+### Testar o endpoint DELETE /api/lancamentos/{id} (cancelar um lançamento)
+DELETE {{ApiControleLancamentos_HostAddress}}/api/lancamentos/1
+Accept: application/json

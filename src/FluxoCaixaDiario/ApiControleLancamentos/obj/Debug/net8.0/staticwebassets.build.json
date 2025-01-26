@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "4exvgFElSTPRVRr+1NHCg1ZktNbk6gVpfIqXL7FtBek=",
+  "Source": "ApiControleLancamentos",
+  "BasePath": "_content/ApiControleLancamentos",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
