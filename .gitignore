@@ -1,1 +1,15 @@
 .vs/
+
+# Build Folders
+bin/
+obj/
+
+# Visual Studio temporary files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated debug folder
+debug/
+release/

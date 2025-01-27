@@ -1,13 +1,20 @@
 ﻿using ApiControleLancamentos.Application.Interfaces;
+using MassTransit;
 
 namespace ApiControleLancamentos.Infra.Messaging
 {
     public class EventPublisher : IEventPublisher
     {
-        public Task PublishAsync(object @event)
+        private readonly IPublishEndpoint _publishEndpoint;
+
+        public EventPublisher(IPublishEndpoint publishEndpoint)
         {
-            // Implementation of PublishAsync method
-            return Task.CompletedTask;
+            _publishEndpoint = publishEndpoint;
+        }
+
+        public async Task PublishAsync<TEvent>(TEvent @event) where TEvent : class
+        {
+            await _publishEndpoint.Publish(@event);
         }
     }
 }

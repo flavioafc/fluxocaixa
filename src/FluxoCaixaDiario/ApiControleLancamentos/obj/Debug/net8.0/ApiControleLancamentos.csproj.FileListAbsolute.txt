@@ -174,3 +174,7 @@ C:\bancocarrefour\fluxocaixa\src\FluxoCaixaDiario\ApiControleLancamentos\obj\Deb
 C:\bancocarrefour\fluxocaixa\src\FluxoCaixaDiario\ApiControleLancamentos\bin\Debug\net8.0\FluentValidation.dll
 C:\bancocarrefour\fluxocaixa\src\FluxoCaixaDiario\ApiControleLancamentos\bin\Debug\net8.0\MassTransit.dll
 C:\bancocarrefour\fluxocaixa\src\FluxoCaixaDiario\ApiControleLancamentos\bin\Debug\net8.0\MassTransit.Abstractions.dll
+C:\bancocarrefour\fluxocaixa\src\FluxoCaixaDiario\ApiControleLancamentos\bin\Debug\net8.0\MassTransit.RabbitMqTransport.dll
+C:\bancocarrefour\fluxocaixa\src\FluxoCaixaDiario\ApiControleLancamentos\bin\Debug\net8.0\Polly.dll
+C:\bancocarrefour\fluxocaixa\src\FluxoCaixaDiario\ApiControleLancamentos\bin\Debug\net8.0\Polly.Core.dll
+C:\bancocarrefour\fluxocaixa\src\FluxoCaixaDiario\ApiControleLancamentos\bin\Debug\net8.0\RabbitMQ.Client.dll

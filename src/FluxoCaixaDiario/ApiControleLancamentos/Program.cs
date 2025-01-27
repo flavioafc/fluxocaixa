@@ -7,6 +7,7 @@ using ApiControleLancamentos.Infra.Messaging;
 using ApiControleLancamentos.Infra.Persistence;
 using ApiControleLancamentos.Infra.Persistence.Repositories;
 using ApiControleLancamentos.Infra.Services;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,18 +16,39 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
 
-// Injeção de dependências
+        // Cria uma fila associada à exchange do evento publicado
+        cfg.ReceiveEndpoint("lancamento-criado-queue", e =>
+        {
+            // Mesmo que não tenha consumidor, isso vincula a fila à exchange
+            e.Bind("ApiControleLancamentos.Domain.Events:LancamentoCriadoEvent");
+        });
+    });
+});
 
-builder.Services.AddScoped<LancamentoService>();
+
+//Infraestrutura
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IEventPublisher, EventPublisher>();
+builder.Services.AddScoped<ILancamentoRepository, LancamentoRepository>();
+
+//Handlers
 builder.Services.AddScoped<RegistrarLancamentoHandler>();
 builder.Services.AddScoped<ListarLancamentosHandler>();
 builder.Services.AddScoped<AtualizarLancamentoHandler>();
 builder.Services.AddScoped<CancelarLancamentoHandler>();
-builder.Services.AddScoped<ILancamentoRepository, LancamentoRepository>();
-builder.Services.AddScoped<IEventPublisher, EventPublisher>();
 
-
+//Serviços
+builder.Services.AddScoped<LancamentoService>();
 
 
 // Configuração de controllers
