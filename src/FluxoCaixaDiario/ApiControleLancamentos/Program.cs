@@ -35,7 +35,6 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
-
 //Infraestrutura
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEventPublisher, EventPublisher>();
