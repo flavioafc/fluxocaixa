@@ -31,7 +31,7 @@ namespace ApiControleLancamentos.Application.UseCases.RegistrarLancamento
             // Adiciona o lançamento no repositório
             await _repository.AddAsync(lancamento);
 
-            // Publica o evento no RabbitMQ
+            // Criar o evento para mandar pro rabbit
             var evento = new LancamentoCriadoEvent(
                 lancamento.Id, lancamento.Valor, lancamento.Tipo.ToString(), lancamento.Data
             );
