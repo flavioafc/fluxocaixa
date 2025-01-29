@@ -1,8 +1,10 @@
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Text.Json;
 using WorkerConsolidado.Models;
+using WorkerConsolidado.Options;
 using WorkerConsolidado.Services;
 
 namespace WorkerConsolidado
@@ -11,6 +13,7 @@ namespace WorkerConsolidado
     {
         private readonly ILogger<WorkerConsolidado> _logger;
         private readonly FluxoDeCaixaService _fluxoDeCaixaService;
+        private readonly RabbitMQOptions _rabbitOptions;
 
         private IConnection _connection;
         private IChannel _channel;
@@ -20,10 +23,12 @@ namespace WorkerConsolidado
 
         public WorkerConsolidado(
             ILogger<WorkerConsolidado> logger,
-            FluxoDeCaixaService fluxoDeCaixaService)
+            FluxoDeCaixaService fluxoDeCaixaService,
+            IOptions<RabbitMQOptions> rabbitOptions)
         {
             _logger = logger;
             _fluxoDeCaixaService = fluxoDeCaixaService;
+            _rabbitOptions = rabbitOptions.Value;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -68,10 +73,9 @@ namespace WorkerConsolidado
         {
             var factory = new ConnectionFactory
             {
-                HostName = "localhost",   // Ajuste conforme seu ambiente
-                UserName = "guest",
-                Password = "guest",
-                // Port = 5672, etc...
+                HostName = _rabbitOptions.HostName,
+                UserName = _rabbitOptions.UserName,
+                Password = _rabbitOptions.Password
             };
 
             _connection = await factory.CreateConnectionAsync();
@@ -79,7 +83,7 @@ namespace WorkerConsolidado
 
             // Declara a fila (caso ela não exista, será criada)
             await _channel.QueueDeclareAsync(
-                queue: QUEUE_NAME,
+                queue: _rabbitOptions.QueueName,
                 durable: true,
                 exclusive: false,
                 autoDelete: false,
@@ -98,7 +102,7 @@ namespace WorkerConsolidado
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
 
-                    _logger.LogInformation("Mensagem recebida da fila {0}: {1}", QUEUE_NAME, message);
+                    _logger.LogInformation("Mensagem recebida da fila {0}: {1}", _rabbitOptions.QueueName, message);
 
                     // Converte a mensagem em objeto (JSON -> Classe MovimentoFinanceiro)
                     var movimento = JsonSerializer.Deserialize<MovimentoFinanceiro>(message);
@@ -122,12 +126,12 @@ namespace WorkerConsolidado
 
             // Inicia o consumo
             await _channel.BasicConsumeAsync(
-                queue: QUEUE_NAME,
+                queue: _rabbitOptions.QueueName,
                 autoAck: false, // false para controlar manualmente o ack
                 consumer: consumer
             );
 
-            _logger.LogInformation("Conectado ao RabbitMQ e aguardando mensagens na fila {0}.", QUEUE_NAME);
+            _logger.LogInformation("Conectado ao RabbitMQ e aguardando mensagens na fila {0}.", _rabbitOptions.QueueName);
         }
     }
 }

@@ -9,6 +9,8 @@ using ApiControleLancamentos.Infra.Persistence.Repositories;
 using ApiControleLancamentos.Infra.Services;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,23 +18,31 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.Configure<RabbitMQOptions>(
+    builder.Configuration.GetSection("RabbitMQ"));
+
 builder.Services.AddMassTransit(x =>
 {
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host("localhost", "/", h =>
+        var rabbitOptions = context.GetRequiredService<IOptions<RabbitMQOptions>>().Value;
+
+        // cfg.Host(...) usando os valores do appsettings
+        cfg.Host(rabbitOptions.Host, rabbitOptions.VirtualHost, h =>
         {
-            h.Username("guest");
-            h.Password("guest");
+            h.Username(rabbitOptions.UserName);
+            h.Password(rabbitOptions.Password);
         });
 
-        // Cria uma fila associada à exchange do evento publicado
-        cfg.ReceiveEndpoint("lancamento-criado-queue", e =>
+        // Antes: "lancamento-criado-queue" estava fixo
+        //        "ApiControleLancamentos.Domain.Events:LancamentoCriadoEvent" estava fixo
+        // Agora: pegando do rabbitOptions
+        cfg.ReceiveEndpoint(rabbitOptions.QueueName, e =>
         {
-            // Mesmo que não tenha consumidor, isso vincula a fila à exchange
-            e.Bind("ApiControleLancamentos.Domain.Events:LancamentoCriadoEvent");
+            e.Bind(rabbitOptions.ExchangeName);
         });
     });
+
 });
 
 //Infraestrutura
