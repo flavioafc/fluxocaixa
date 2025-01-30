@@ -43,16 +43,48 @@ A solução adota uma abordagem de **MicroServiços**, **CQRS**, e **mensageria 
 ### 🏛 **Desenho da Arquitetura**
 ![Arquitetura Geral](./docs/images/diagramasolucao.png)
 
-### 🔹 **Principais Decisões Arquiteturais**
-- Uso de **RabbitMQ** para comunicação assíncrona entre serviços.
-- Separação entre **banco transacional** (lançamentos detalhados) e **banco analítico** (dados agregados).
-- Uso de **Redis Cache** para otimizar consultas de relatórios frequentes.
-- **Autenticação OAuth 2.0 + JWT**, integrado ao **Azure AD**.
-- Segurança reforçada com **Key Vault para segredos** e **TLS obrigatório**.
+## 🔹 Principais Decisões Arquiteturais
 
-📄 **Documentação detalhada:**  
-- [Documento de Arquitetura](./docs/arquitetura/arquitetura-geral.md)  
-- [ADR: Adoção de Clean Architecture](./docs/adr/ADR-0001-CleanArchitecture.md)
+A solução foi projetada para ser **modular, escalável e resiliente**, adotando padrões modernos e boas práticas.
+
+### 🏗 **Decisões Arquiteturais Fundamentais**
+✅ **Adoção da arquitetura de Microserviços**  
+📄 [Leia mais: ADR-0001 - Microserviços](./docs/adrs/ADR-0001-Decisao-Adotar-Microservicos.md)
+
+✅ **Adoção de Clean Architecture**  
+📄 [Leia mais: ADR-0001 - Clean Architecture](./docs/adr/ADR-0001-CleanArchitecture.md)
+
+✅ **Uso de RabbitMQ para comunicação assíncrona**  
+📄 [Leia mais: ADR-0002 - Uso de RabbitMQ](./docs/adr/ADR-0002-UsandoRabbitMQ.md)
+
+✅ **Separação entre Banco Transacional e Analítico**  
+📄 [Leia mais: ADR-0003 - Separação de Dados](./docs/adrs/ADR-002-Separacao-Dados-transacional-e-analitico.md)
+
+✅ **Uso de Redis Cache para otimizar relatórios frequentes**  
+📄 [Leia mais: ADR-0004 - Uso de Redis Cache](./docs/adr/ADR-0004-RedisCache.md)
+
+✅ **Autenticação OAuth 2.0 + JWT, integrado ao Azure AD**  
+📄 [Leia mais: Documento de Segurança](./docs/requisitos/DocumentoDeSeguranca.md)
+
+✅ **Segurança reforçada com Key Vault para segredos e TLS obrigatório**  
+📄 [Leia mais: Arquitetura de Segurança](./docs/arquitetura/arquitetura-seguranca.md)
+
+---
+
+## 🚀 **Escalabilidade e Resiliência**
+
+A solução foi projetada para ser **horizontamente escalável** e suportar alta disponibilidade.
+
+✅ **Escalabilidade**  
+- Suporte a **múltiplas instâncias** de APIs e Workers.  
+- RabbitMQ balanceia carga distribuindo mensagens entre Workers.  
+
+✅ **Resiliência**  
+- Uso de **retry automático** e **dead-letter queues (DLQ)** para evitar perda de mensagens.  
+- Failover e replicação para garantir **alta disponibilidade do banco de dados**.  
+
+📄 [Leia mais: Arquitetura e Infraestrutura](./docs/arquitetura/arquitetura-geral.md)
+
 
 ---
 
