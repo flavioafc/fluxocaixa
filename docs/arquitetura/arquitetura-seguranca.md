@@ -70,8 +70,3 @@ O seguinte diagrama ilustra a **arquitetura de segurança** da solução:
 
 ## 5️⃣ Conclusão
 A arquitetura de segurança da solução segue padrões modernos para garantir **autenticação forte, proteção de dados e comunicação segura**.
-
-📄 **Documentação Complementar**:
-- [Documento de Segurança](../requisitos/DocumentoDeSeguranca.md)  
-- [Requisitos Não-Funcionais](../requisitos/RequisitosNaoFuncionais.md)  
-- [DevOps e Deploy](../requisitos/DevOpsEDeploy.md)  
