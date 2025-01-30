@@ -60,7 +60,7 @@ A solução adota **Clean Architecture**, **CQRS**, e **mensageria assíncrona**
 
 📌 **Requisitos de Negócio e Técnicos**:
 - [Documento de Requisitos](./docs/requisitos/documentorequisitos.md)  
-- [Requisitos Não-Funcionais](./docs/requisitos/requisitos-nao-funcionais.md)  
+- [Requisitos Não-Funcionais](./docs/requisitos/naofuncionais/requisitos-nao-funcionais.md)  
 
 🔐 **Segurança**:
 - [Documento de Segurança](./docs/requisitos/DocumentoDeSeguranca.md)  
