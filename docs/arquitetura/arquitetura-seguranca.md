@@ -31,7 +31,7 @@ A segurança da solução é estruturada da seguinte forma:
 
 O seguinte diagrama ilustra a **arquitetura de segurança** da solução:
 
-![Diagrama de Segurança](./diagramas/arquitetura-seguranca.png)
+![Diagrama de Segurança](../images/diagrama-de-seguranca.png)
 
 🔹 **Explicação do diagrama**:
 - **Usuário se autentica via OAuth 2.0/OpenID Connect** e recebe um **JWT Token**.
