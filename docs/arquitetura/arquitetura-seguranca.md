@@ -17,12 +17,13 @@ Este documento descreve os principais mecanismos de segurança implementados, in
 A segurança da solução é estruturada da seguinte forma:
 
 ### 🛡 **Camadas de Segurança**
-1. **Autenticação** → O **Azure AD** (ou outro IdP) gerencia autenticação via **OAuth 2.0 e OpenID Connect**.
-2. **Autorização** → Tokens **JWT** contêm permissões e são validados pelas APIs.
-3. **Segurança na Comunicação** → **TLS 1.2+ obrigatório** para todas as APIs, RabbitMQ e banco de dados.
-4. **Proteção de Dados** → Dados sensíveis são armazenados com **criptografia (TDE e AES-256)**.
-5. **Gerenciamento de Segredos** → Credenciais e chaves são armazenadas no **Azure Key Vault**.
-6. **Monitoramento de Segurança** → Logs estruturados são enviados para detecção de ameaças.
+1. **Autenticação e Autorização** → O **Azure AD** (ou outro IdP) gerencia autenticação via **OAuth 2.0 e OpenID Connect**.
+2. **API Gateway** → Valida **JWT Tokens**, protege contra ataques de força bruta e faz **rate limiting**.
+3. **Autorização nos Serviços** → As APIs utilizam **JWT** para validar permissões e aplicar controle de acesso.
+4. **Segurança na Comunicação** → **TLS 1.2+ obrigatório** para todas as APIs, RabbitMQ e banco de dados.
+5. **Proteção de Dados** → Dados sensíveis são armazenados com **criptografia (TDE e AES-256)**.
+6. **Gerenciamento de Segredos** → Credenciais e chaves são armazenadas no **Azure Key Vault**.
+7. **Monitoramento de Segurança** → Logs estruturados são enviados para detecção de ameaças.
 
 ---
 
