@@ -44,6 +44,18 @@ Desenvolver uma solução para o controle de fluxo de caixa de um pequeno comér
 - **Observabilidade**: Monitoramento de métricas e logs em tempo real.
 
 ---
+## Documentos Relacionados
+
+- [**Documento de Requisitos Detalhados**](./docs/requisitos/DocumentoDeRequisitos.md)  
+  Apresenta todas as **regras de negócio**, **processos de consolidação**, **requisitos funcionais e não funcionais** com maior profundidade.  
+
+- [**ADR: Adoção de Clean Architecture**](./docs/adr/ADR-0001-CleanArchitecture.md)  
+  Explica o **racional** da escolha de **Clean Architecture** em vez de outras abordagens (Layers, Hexagonal etc.), bem como as consequências para nosso projeto.
+
+- [**Arquitetura e Infraestrutura**](./docs/arquitetura/arquitetura-geral.md) (Exemplo)  
+  Contém **diagramas** de implementação, topologia de **RabbitMQ**, banco de dados, containerização (Docker), além das decisões sobre **monitoramento**, **logs** e **deploy**.
+
+---
 
 ## 2. Desenho da Solução
 
