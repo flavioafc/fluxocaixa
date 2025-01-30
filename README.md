@@ -25,11 +25,13 @@ A solução permite gerenciar o **fluxo de caixa** de um pequeno comércio, ofer
 
 A solução segue os princípios do **Domain-Driven Design (DDD)**, separando os domínios de Fluxo de Caixa, Relatórios e Infraestrutura.
 
+![Mapeamento do Domínio](./docs/images/dominio.png)
+
 🔹 **Domínio de Fluxo de Caixa** → Processa lançamentos e consolida saldos diários.  
 🔹 **Domínio de Relatórios** → Fornece acesso aos saldos consolidados.  
 🔹 **Infraestrutura** → Gerencia segurança, mensageria e caching.  
 
-📄 **Leia mais**: [Mapeamento de Domínios e Capacidades](./docs/requisitos/MapeamentoDominios.md)
+📄 **Leia mais**: [Mapeamento de Domínios e Capacidades](./docs/requisitos/mapeamento-de-dominio.md)
 
 
 ### 🏗 **Componentes Principais**
