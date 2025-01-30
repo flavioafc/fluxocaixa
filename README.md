@@ -46,7 +46,7 @@ Desenvolver uma solução para o controle de fluxo de caixa de um pequeno comér
 ---
 ## Documentos Relacionados
 
-- [**Documento de Requisitos Detalhados**](./docs/requisitos/DocumentoDeRequisitos.md)  
+- [**Documento de Requisitos Detalhados**](./docs/requisitos/documentorequisitos.md)  
   Apresenta todas as **regras de negócio**, **processos de consolidação**, **requisitos funcionais e não funcionais** com maior profundidade.  
 
 - [**ADR: Adoção de Clean Architecture**](./docs/adr/ADR-0001-CleanArchitecture.md)  
