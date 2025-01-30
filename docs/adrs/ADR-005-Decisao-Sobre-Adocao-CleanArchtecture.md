@@ -96,4 +96,14 @@ O projeto foi organizado da seguinte forma, seguindo os princípios da **Clean A
 
 ![CleanArch](../images/CleanArchitecture.PNG)
 
+## 5️⃣ Conclusão
+
+A organização do projeto foi planejada para ser **modular, testável e escalável**, permitindo fácil evolução.  
+Cada camada tem uma responsabilidade clara, **seguindo os princípios da Clean Architecture** para garantir **baixo acoplamento e alta reutilização de código**.
+
+📄 **Referências**  
+- 📘 *Clean Architecture - Robert C. Martin (Uncle Bob)*  
+- 📘 *Patterns, Principles, and Practices of Domain-Driven Design - Scott Millett*  
+- 📄 *[Post Oficial sobre Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)*  
+
 
