@@ -21,6 +21,17 @@ Ele foi desenvolvido para aprendizado e experimentação de conceitos arquitetur
 ### 🎯 **Objetivo**
 A solução permite gerenciar o **fluxo de caixa** de um pequeno comércio, oferecendo **registro de lançamentos**, **consolidação diária** e **relatórios financeiros**.
 
+## 🏛 Mapeamento de Domínios e Capacidades de Negócio
+
+A solução segue os princípios do **Domain-Driven Design (DDD)**, separando os domínios de Fluxo de Caixa, Relatórios e Infraestrutura.
+
+🔹 **Domínio de Fluxo de Caixa** → Processa lançamentos e consolida saldos diários.  
+🔹 **Domínio de Relatórios** → Fornece acesso aos saldos consolidados.  
+🔹 **Infraestrutura** → Gerencia segurança, mensageria e caching.  
+
+📄 **Leia mais**: [Mapeamento de Domínios e Capacidades](./docs/requisitos/MapeamentoDominios.md)
+
+
 ### 🏗 **Componentes Principais**
 1. **API de Controle de Lançamentos**  
    - Gerencia os lançamentos financeiros (créditos e débitos).  
