@@ -38,7 +38,7 @@ A solução permite gerenciar o **fluxo de caixa** de um pequeno comércio, ofer
 
 ## 2️⃣ **Arquitetura da Solução**
 
-A solução adota **Clean Architecture**, **CQRS**, e **mensageria assíncrona**.
+A solução adota uma abordagem de **MicroServiços**, **CQRS**, e **mensageria assíncrona**.
 
 ### 🏛 **Desenho da Arquitetura**
 ![Arquitetura Geral](./docs/images/diagramasolucao.png)
