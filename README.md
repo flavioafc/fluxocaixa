@@ -63,7 +63,7 @@ A solução adota uma abordagem de **MicroServiços**, **CQRS**, e **mensageria 
 - [Requisitos Não-Funcionais](./docs/requisitos/naofuncionais/requisitos-nao-funcionais.md)  
 
 🔐 **Segurança**:
-- [Documento de Segurança](./docs/requisitos/DocumentoDeSeguranca.md)  
+- [Documento de Segurança](./docs/requisitos/naofuncionais/seguranca.md)  
 - [Arquitetura de Segurança](./docs/arquitetura/arquitetura-seguranca.md)  
 
 🚀 **DevOps e Infraestrutura**:
