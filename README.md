@@ -49,19 +49,19 @@ A solução foi projetada para ser **modular, escalável e resiliente**, adotand
 
 ### 🏗 **Decisões Arquiteturais Fundamentais**
 ✅ **Adoção da arquitetura de Microserviços**  
-📄 [Leia mais: ADR-0001 - Microserviços](./docs/adrs/ADR-0001-Decisao-Adotar-Microservicos.md)
-
-✅ **Adoção de Clean Architecture**  
-📄 [Leia mais: ADR-0001 - Clean Architecture](./docs/adr/ADR-0001-CleanArchitecture.md)
-
-✅ **Uso de RabbitMQ para comunicação assíncrona**  
-📄 [Leia mais: ADR-0002 - Uso de RabbitMQ](./docs/adr/ADR-0002-UsandoRabbitMQ.md)
+📄 [Leia mais: ADR-0001 - Microserviços](./docs/adrs/ADR-001-Decisao-Adotar-Microservicos.md)
 
 ✅ **Separação entre Banco Transacional e Analítico**  
-📄 [Leia mais: ADR-0003 - Separação de Dados](./docs/adrs/ADR-002-Separacao-Dados-transacional-e-analitico.md)
+📄 [Leia mais: ADR-0002 - Separação de Dados](./docs/adrs/ADR-002-Separacao-Dados-Transacional-e-Analitico.md)
 
 ✅ **Uso de Redis Cache para otimizar relatórios frequentes**  
-📄 [Leia mais: ADR-0004 - Uso de Redis Cache](./docs/adr/ADR-0004-RedisCache.md)
+📄 [Leia mais: ADR-0003 - Uso de Redis Cache](./docs/adrs/ADR-003-Decisao-Sobre-Cache-Para-Relatorios-Diarios.md)
+
+✅ **Adoção de Clean Architecture**  
+📄 [Leia mais: ADR-0000 - Clean Architecture](./docs/adr/ADR-0001-CleanArchitecture.md)
+
+✅ **Uso de RabbitMQ para comunicação assíncrona**  
+📄 [Leia mais: ADR-0000 - Uso de RabbitMQ](./docs/adr/ADR-0002-UsandoRabbitMQ.md)
 
 ✅ **Autenticação OAuth 2.0 + JWT, integrado ao Azure AD**  
 📄 [Leia mais: Documento de Segurança](./docs/requisitos/DocumentoDeSeguranca.md)
