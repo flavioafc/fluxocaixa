@@ -42,7 +42,7 @@ A modelagem da solução segue os princípios do **Domain-Driven Design (DDD)**,
 - **Azure Key Vault** → Gerenciamento seguro de credenciais.  
 - **Redis Cache** → Otimização das consultas de relatórios.  
 
-📄 **Leia mais: [Mapeamento de Domínios e Capacidades](./docs/requisitos/MapeamentoDominios.md)**  
+📄 **Leia mais: [Mapeamento de Domínios e Capacidades de negócio](./docs/requisitos/MapeamentoDominios.md)**  
 
 
 
