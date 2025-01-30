@@ -95,3 +95,5 @@ Após avaliar as três abordagens, decidimos adotar a **Clean Architecture** com
 O projeto foi organizado da seguinte forma, seguindo os princípios da **Clean Architecture**:
 
 ![CleanArch](../images/CleanArchitecture.PNG)
+
+
