@@ -12,7 +12,7 @@ Cada **Bounded Context** possui responsabilidades próprias e interage com os de
 
 O diagrama abaixo representa a separação dos **Bounded Contexts** dentro do **Domínio de Gestão Financeira**.
 
-![Bounded Contexts - Gestão Financeira](./images/dominio-bounded-contexts.png)
+![Bounded Contexts - Gestão Financeira](../images/dominio-bounded-contexts.png)
 
 ---
 
