@@ -36,7 +36,7 @@ Abaixo estão os **principais requisitos não-funcionais** da solução.
 - **Criptografia** de dados sensíveis no banco via **TDE (Transparent Data Encryption)**.
 - **Gerenciamento de segredos** no **Azure Key Vault** ou outro cofre seguro.
 
-📄 **Leia mais:** [Documento de Segurança](../requisitos/DocumentoDeSeguranca.md)  
+📄 **Leia mais:** [Documento de Segurança](../requisitos/naofuncionais/seguranca.md)  
 
 ---
 
