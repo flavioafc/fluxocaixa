@@ -1,0 +1,34 @@
+@startuml
+title Domínio e Bounded Contexts - Gestão Financeira
+
+rectangle "Gestão Financeira (Domínio)" {
+    
+    package "Fluxo de Caixa Diário (Bounded Context)" {
+        [API de Lançamentos] --> [Worker de Consolidação] : Publica Evento
+        [Worker de Consolidação] --> [Banco Analítico] : Atualiza Saldo
+        [Banco Transacional] --> [API de Lançamentos] : Registra Lançamento
+    }
+
+    package "Relatórios Financeiros (Bounded Context)" {
+        [API de Relatórios] --> [Banco Analítico] : Consulta Saldos Consolidados
+        [API de Relatórios] --> [Redis Cache] : Melhora Performance
+    }
+
+    package "Conciliação Bancária (Bounded Context)" {
+        [API de Conciliação] --> [Serviço de Integração Bancária] : Obtém Extratos
+        [API de Conciliação] --> [Banco Analítico] : Valida Diferenças
+    }
+}
+
+package "Infraestrutura" {
+    [RabbitMQ] --> [Worker de Consolidação] : Processamento Assíncrono
+    [Azure Key Vault] --> [APIs] : Gerenciamento de Credenciais
+    [Monitoramento] --> [APIs] : Logs e Alertas
+}
+
+actor Usuário
+Usuário --> [API de Lançamentos] : Registra Lançamento
+Usuário --> [API de Relatórios] : Consulta Relatórios
+Usuário --> [API de Conciliação] : Valida Lançamentos
+
+@enduml
