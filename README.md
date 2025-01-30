@@ -27,11 +27,23 @@ A solução segue os princípios do **Domain-Driven Design (DDD)**, separando os
 
 ![Mapeamento do Domínio](./docs/images/dominio-bounded-contexts.png)
 
-🔹 **Domínio de Fluxo de Caixa** → Processa lançamentos e consolida saldos diários.  
-🔹 **Domínio de Relatórios** → Fornece acesso aos saldos consolidados.  
-🔹 **Infraestrutura** → Gerencia segurança, mensageria e caching.  
+### 📌 **Bounded Contexts - Gestão Financeira**
+A modelagem da solução segue os princípios do **Domain-Driven Design (DDD)**, organizando os domínios e suas fronteiras.
 
-📄 **Leia mais**: [Mapeamento de Domínios e Capacidades](./docs/requisitos/mapeamento-de-dominio.md)
+🔹 **Domínio de Gestão Financeira**  
+📌 Responsável por **controlar lançamentos financeiros, consolidar saldos e gerar relatórios**.  
+- **Bounded Context de Fluxo de Caixa** → Gerencia os **lançamentos financeiros** e **saldo diário consolidado**.  
+- **Bounded Context de Relatórios Financeiros** → Fornece acesso aos **saldos consolidados e exportação de dados**.  
+- **Bounded Context de Conciliação Bancária** → Valida lançamentos comparando com **extratos bancários externos**.  
+
+🔹 **Infraestrutura e Comunicação**  
+📌 Responsável por **segurança, mensageria e caching**, garantindo resiliência e performance.  
+- **RabbitMQ** → Comunicação assíncrona entre os contextos.  
+- **Azure Key Vault** → Gerenciamento seguro de credenciais.  
+- **Redis Cache** → Otimização das consultas de relatórios.  
+
+📄 **Leia mais: [Mapeamento de Domínios e Capacidades](./docs/requisitos/MapeamentoDominios.md)**  
+
 
 
 ### 🏗 **Componentes Principais**
