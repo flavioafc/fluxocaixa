@@ -30,13 +30,13 @@ Abaixo estão os **principais requisitos não-funcionais** da solução.
 ---
 
 ### 🔐 **RNF-3: Segurança**
-- **Autenticação** via **OAuth 2.0 e OpenID Connect** (ex.: Azure AD, Keycloak, Auth0).
+- **Autenticação** via **OAuth 2.0 e OpenID Connect** (Utilizando Azure AD).
 - **Autorização** baseada em **JWT**, com políticas de acesso granular.
 - **TLS/SSL** obrigatório para APIs, RabbitMQ e comunicação com banco de dados.
 - **Criptografia** de dados sensíveis no banco via **TDE (Transparent Data Encryption)**.
 - **Gerenciamento de segredos** no **Azure Key Vault** ou outro cofre seguro.
 
-📄 **Leia mais:** [Documento de Segurança](../requisitos/naofuncionais/seguranca.md)  
+📄 **Leia mais:** [Documento de Segurança](../naofuncionais/seguranca.md)  
 
 ---
 
