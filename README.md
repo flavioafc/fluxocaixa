@@ -85,19 +85,13 @@ A solução foi projetada para ser **modular, escalável e resiliente**, adotand
 ✅ **Uso de Azure Service Bus para comunicação assíncrona [Deprecated]**  
 📄 [Leia mais: ADR-004 - Uso do Azure Sevice Bus](./docs/adrs/ADR-004-Decisao-Sobre-Azure-Service-Bus.md)
 
-✅ **Uso do RabbitMQ para comunicação assíncrona **  
-📄 [Leia mais: ADR-006 - Uso do RabbitMQ](./docs/adrs/ADR-006-Decisao-Usar-RabbitMQ.md)
-
 ✅ **Adoção de Clean Architecture**  
 📄 [Leia mais: ADR-005 - Clean Architecture](./docs/adrs/ADR-005-Decisao-Sobre-Adocao-CleanArchtecture.md)
 
+✅ **Uso do RabbitMQ para comunicação assíncrona [ATUAL]**  
+📄 [Leia mais: ADR-006 - Uso do RabbitMQ](./docs/adrs/ADR-006-Decisao-Usar-RabbitMQ.md)
 
 
-✅ **Autenticação OAuth 2.0 + JWT, integrado ao Azure AD**  
-📄 [Leia mais: Documento de Segurança](./docs/requisitos/DocumentoDeSeguranca.md)
-
-✅ **Segurança reforçada com Key Vault para segredos e TLS obrigatório**  
-📄 [Leia mais: Arquitetura de Segurança](./docs/arquitetura/arquitetura-seguranca.md)
 
 ---
 
@@ -125,8 +119,9 @@ A solução foi projetada para ser **horizontamente escalável** e suportar alta
 - [Requisitos Não-Funcionais](./docs/requisitos/naofuncionais/requisitos-nao-funcionais.md)  
 
 🔐 **Segurança**:
-- [Documento de Segurança](./docs/requisitos/naofuncionais/seguranca.md)  
 - [Arquitetura de Segurança](./docs/arquitetura/arquitetura-seguranca.md)  
+- [Documento de Segurança](./docs/requisitos/naofuncionais/seguranca.md)  
+
 
 🚀 **DevOps e Infraestrutura**:
 - [DevOps e Deploy](./docs/requisitos/DevOpsEDeploy.md)  
