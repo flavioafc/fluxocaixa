@@ -1,0 +1,43 @@
+@startuml
+title Arquitetura de Segurança
+
+actor Usuário as U
+participant "Identity Provider (Azure AD / Keycloak / Auth0)" as IdP
+participant "API Gateway" as Gateway
+participant "API de Lançamentos" as API_Lancamentos
+participant "API de Relatórios" as API_Relatorios
+participant "RabbitMQ (TLS Ativado)" as RabbitMQ
+database "Banco de Dados Transacional (SQL Server - TDE Ativado)" as DB_Transacional
+database "Banco de Dados Analítico (SQL Server - TDE Ativado)" as DB_Analitico
+database "Azure Key Vault (Gerenciamento de Segredos)" as KeyVault
+participant "Monitoramento (Logs & Alertas)" as Monitoramento
+
+== Fluxo de Autenticação ==
+U -> IdP : Solicita autenticação (OAuth 2.0 / OpenID Connect)
+IdP -> U : Retorna JWT Token
+U -> Gateway : Envia requisição com JWT Token
+
+== Validação e Processamento ==
+Gateway -> API_Lancamentos : Valida JWT e encaminha requisição
+API_Lancamentos -> KeyVault : Obtém credenciais seguras
+API_Lancamentos -> RabbitMQ : Publica evento assíncrono
+RabbitMQ -> API_Lancamentos : Mensagem processada com TLS
+
+== Persistência Segura ==
+API_Lancamentos -> DB_Transacional : Insere/consulta lançamentos (dados criptografados - TDE)
+DB_Transacional -> KeyVault : Verifica chave de criptografia
+
+== Fluxo de Relatórios ==
+U -> Gateway : Solicita relatório consolidado
+Gateway -> API_Relatorios : Valida JWT e encaminha requisição
+API_Relatorios -> KeyVault : Obtém credenciais seguras
+API_Relatorios -> DB_Analitico : Consulta saldos consolidados (dados criptografados - TDE)
+DB_Analitico -> KeyVault : Verifica chave de criptografia
+
+== Monitoramento e Logs ==
+API_Lancamentos -> Monitoramento : Envia logs estruturados
+API_Relatorios -> Monitoramento : Envia logs estruturados
+Monitoramento -> API_Lancamentos : Detecta acessos suspeitos e gera alertas
+Monitoramento -> API_Relatorios : Detecta acessos suspeitos e gera alertas
+
+@enduml
