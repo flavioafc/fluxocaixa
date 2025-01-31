@@ -1,4 +1,4 @@
-# ADR-004: Decisão Sobre o Uso do Azure Service Bus para Comunicação Assíncrona
+# ADR-004: Decisão Sobre o Uso do Azure Service Bus para Comunicação Assíncrona [DEPRECATED]
 
 ## Contexto
 
