@@ -54,3 +54,79 @@ output "kube_config" {
   value     = azurerm_kubernetes_cluster.aks.kube_config_raw
   sensitive = true
 }
+
+resource "kubernetes_deployment" "rabbitmq" {
+  metadata {
+    name = "rabbitmq"
+    namespace = "default"
+  }
+
+  spec {
+    replicas = 1
+
+    selector {
+      match_labels = {
+        app = "rabbitmq"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "rabbitmq"
+        }
+      }
+
+      spec {
+        container {
+          image = "rabbitmq:3-management"
+          name  = "rabbitmq"
+
+          port {
+            container_port = 5672
+          }
+
+          port {
+            container_port = 15672
+          }
+
+          env {
+            name  = "RABBITMQ_DEFAULT_USER"
+            value = "guest"
+          }
+
+          env {
+            name  = "RABBITMQ_DEFAULT_PASS"
+            value = "guest"
+          }
+        }
+      }
+    }
+  }
+}
+
+resource "kubernetes_service" "rabbitmq" {
+  metadata {
+    name = "rabbitmq-service"
+  }
+
+  spec {
+    selector = {
+      app = "rabbitmq"
+    }
+
+    port {
+      protocol    = "TCP"
+      port        = 5672
+      target_port = 5672
+    }
+
+    port {
+      protocol    = "TCP"
+      port        = 15672
+      target_port = 15672
+    }
+
+    type = "LoadBalancer"
+  }
+}
