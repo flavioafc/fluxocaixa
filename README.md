@@ -124,9 +124,8 @@ A solução foi projetada para ser **horizontamente escalável** e suportar alta
 
 
 🚀 **DevOps e Infraestrutura**:
-- [DevOps e Deploy](./docs/requisitos/DevOpsEDeploy.md)  
+- [DevOps e Deploy](./docs/devops/devops-deploy.md)  
 - [Setup Local](./docs/setup/setup-local.md)  
-- [Setup de Produção](./docs/setup/setup-deploy.md)  
 
 📊 **Monitoramento e Observabilidade**:
 - [Observabilidade e Logs](./docs/requisitos/Observabilidade.md)  
