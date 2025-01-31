@@ -10,6 +10,8 @@ using ApiControleLancamentos.Infra.Services;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -59,6 +61,19 @@ builder.Services.AddScoped<CancelarLancamentoHandler>();
 //Serviços
 builder.Services.AddScoped<LancamentoService>();
 
+// Configurar Serilog para Logs Estruturados
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.WithProperty("Application", "ApiControleLancamentos")
+    .WriteTo.Console(formatter: new Serilog.Formatting.Json.JsonFormatter())
+    .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+    {
+        AutoRegisterTemplate = true,
+        IndexFormat = "log-api-{0:yyyy.MM.dd}"
+    })
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Configuração de controllers
 builder.Services.AddControllers();
