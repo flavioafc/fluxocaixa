@@ -128,7 +128,7 @@ A solução foi projetada para ser **horizontamente escalável** e suportar alta
 - [Setup Local](./docs/setup/setup-local.md)  
 
 📊 **Monitoramento e Observabilidade**:
-- [Observabilidade e Logs](./docs/requisitos/Observabilidade.md)  
+- [Observabilidade e Logs](./docs/monitoramento/monitoramento-observabilidade.md)  
 
 ---
 
