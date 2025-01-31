@@ -3,7 +3,7 @@
 ## 🚨 Aviso
 
 **Este projeto é uma Prova de Conceito (POC).**  
-Ele foi desenvolvido para aprendizado e experimentação de conceitos arquiteturais, **não sendo solicitado ou pertencente ao trabalho de nenhuma empresa**.
+Ele foi desenvolvido para demonstração de conceitos arquiteturais, **não sendo solicitado ou pertencente ao trabalho de nenhuma empresa**.
 
 ---
 
