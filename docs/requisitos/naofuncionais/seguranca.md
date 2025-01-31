@@ -113,4 +113,3 @@ Este documento define os principais controles de segurança que garantem:
 ✅ **Monitoramento e auditoria** para rastrear ações suspeitas.  
 ✅ **Segurança no deploy e na infraestrutura** com Docker e CI/CD seguro.
 
-Com essas práticas, garantimos **um ambiente seguro para o sistema de controle de fluxo de caixa**.
