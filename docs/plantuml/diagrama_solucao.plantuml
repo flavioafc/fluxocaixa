@@ -1,0 +1,57 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_TOP_DOWN()
+
+title Arquitetura Geral - Fluxo de Caixa Diário (Dados Sintéticos e Analíticos)
+
+Person(admin, "Admin do Comércio", "Gerencia os relatórios e monitora o sistema.")
+Person(user, "Usuário do Comércio", "Registra lançamentos no fluxo de caixa.")
+
+Boundary(security_layer, "Camada de Segurança - Firewall e NSG") {
+    System_Boundary(system_boundary, "Sistema de Fluxo de Caixa Diário") {
+        Container(app_api, "Serviço de Controle de Lançamentos", "API REST (.NET 8)", "Registra lançamentos e publica eventos.")
+        ContainerDb(sql_db_sintetico, "Banco Transacional (Lançamentos)", "Azure SQL", "Armazena lançamentos detalhados.")
+        
+        Container(app_worker, "Serviço de Consolidado Diário", "Worker Service (.NET 8)", "Processa eventos e calcula saldos diários.")
+        ContainerDb(sql_db_analitico, "Banco Analítico (Saldos Consolidados)", "Azure SQL", "Armazena saldos consolidados.")
+        
+        Container(app_reports, "Serviço de Relatórios", "API REST (.NET 8)", "Fornece dados sintéticos e analíticos.")
+        Container(azure_function, "Geração de Relatório Diário", "Azure Function (Timer Trigger)", "Dispara a geração automática dos relatórios diários.")
+        
+        Container(kv, "Azure Key Vault", "Secrets Manager", "Gerencia segredos e chaves de criptografia.")
+        ContainerQueue(rabbitmq, "RabbitMQ", "Message Queue", "Mensageria assíncrona entre os serviços.")
+        ContainerQueue(dlq, "Dead Letter Queue (DLQ)", "RabbitMQ DLQ", "Mensagens que falharam no processamento.")
+        Container(redis_cache, "Azure Cache for Redis", "Cache", "Cache distribuído para relatórios frequentes.")
+    }
+}
+
+Rel(user, app_api, "Registra lançamentos (créditos/débitos)", "HTTPS/REST")
+Rel(admin, app_reports, "Consulta relatórios consolidados", "HTTPS/REST")
+
+Rel(app_api, sql_db_sintetico, "Persiste lançamentos", "SQL")
+Rel(app_api, rabbitmq, "Publica eventos de novos lançamentos", "AMQP")
+Rel(rabbitmq, app_worker, "Consume eventos de lançamentos", "AMQP")
+Rel(app_worker, sql_db_analitico, "Atualiza saldo consolidado", "SQL")
+
+Rel(app_worker, dlq, "Envia mensagens com erro", "AMQP")
+Rel(dlq, admin, "Admin pode reprocessar mensagens da DLQ", "Manual/Automático")
+
+Rel(app_reports, redis_cache, "Consulta cache para dados rápidos", "Redis Protocol")
+Rel(app_reports, sql_db_analitico, "Consulta saldos consolidados (fallback)", "SQL")
+Rel(app_reports, sql_db_sintetico, "Consulta lançamentos detalhados", "SQL")
+Rel(azure_function, app_reports, "Dispara geração de relatórios", "HTTPS/REST")
+Rel(app_api, kv, "Consulta secrets (ex.: strings de conexão)", "HTTPS/REST")
+Rel(app_worker, kv, "Consulta secrets (ex.: strings de conexão)", "HTTPS/REST")
+Rel(app_reports, kv, "Consulta secrets (ex.: strings de conexão)", "HTTPS/REST")
+
+Boundary(security_boundary, "Segurança e Autenticação") {
+    Component(auth, "Autenticação e Autorização", "Azure AD", "Controla acesso às APIs e serviços.")
+    Rel(app_api, auth, "Autentica usuários via JWT", "OAuth 2.0")
+    Rel(app_reports, auth, "Autentica administradores via JWT", "OAuth 2.0")
+}
+
+@enduml
