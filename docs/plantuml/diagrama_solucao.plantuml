@@ -8,24 +8,24 @@ LAYOUT_TOP_DOWN()
 
 title Arquitetura Geral - Fluxo de Caixa Diário (Dados Sintéticos e Analíticos)
 
+Person(user, "Usuario do Comércio", "Opera no sistema do comercio.")
 Person(admin, "Admin do Comércio", "Gerencia os relatórios e monitora o sistema.")
-Person(user, "Usuário do Comércio", "Registra lançamentos no fluxo de caixa.")
+Person(tech_admin, "Administrador Técnico", "Gerencia infraestrutura e monitora falhas.")
 
 Boundary(security_layer, "Camada de Segurança - Firewall e NSG") {
     System_Boundary(system_boundary, "Sistema de Fluxo de Caixa Diário") {
-        Container(app_api, "Serviço de Controle de Lançamentos", "API REST (.NET 8)", "Registra lançamentos e publica eventos.")
+        Container(app_api, "APIControleLancamentos", "API REST (.NET 8)", "Registra lançamentos e publica eventos.")
         ContainerDb(sql_db_sintetico, "Banco Transacional (Lançamentos)", "Azure SQL", "Armazena lançamentos detalhados.")
         
-        Container(app_worker, "Serviço de Consolidado Diário", "Worker Service (.NET 8)", "Processa eventos e calcula saldos diários.")
+        Container(worker_consolidado, "WorkerConsolidado", "Worker Service (.NET 8)", "Consolida lançamentos e atualiza saldos diários.")
         ContainerDb(sql_db_analitico, "Banco Analítico (Saldos Consolidados)", "Azure SQL", "Armazena saldos consolidados.")
         
-        Container(app_reports, "Serviço de Relatórios", "API REST (.NET 8)", "Fornece dados sintéticos e analíticos.")
-        Container(azure_function, "Geração de Relatório Diário", "Azure Function (Timer Trigger)", "Dispara a geração automática dos relatórios diários.")
+        Container(app_reports, "API de Relatórios", "API REST (.NET 8)", "Fornece acesso aos dados consolidados.")
         
         Container(kv, "Azure Key Vault", "Secrets Manager", "Gerencia segredos e chaves de criptografia.")
         ContainerQueue(rabbitmq, "RabbitMQ", "Message Queue", "Mensageria assíncrona entre os serviços.")
         ContainerQueue(dlq, "Dead Letter Queue (DLQ)", "RabbitMQ DLQ", "Mensagens que falharam no processamento.")
-        Container(redis_cache, "Azure Cache for Redis", "Cache", "Cache distribuído para relatórios frequentes.")
+        Container(redis_cache, "Redis Cache", "Cache", "Cache distribuído para relatórios frequentes.")
     }
 }
 
@@ -34,18 +34,18 @@ Rel(admin, app_reports, "Consulta relatórios consolidados", "HTTPS/REST")
 
 Rel(app_api, sql_db_sintetico, "Persiste lançamentos", "SQL")
 Rel(app_api, rabbitmq, "Publica eventos de novos lançamentos", "AMQP")
-Rel(rabbitmq, app_worker, "Consume eventos de lançamentos", "AMQP")
-Rel(app_worker, sql_db_analitico, "Atualiza saldo consolidado", "SQL")
+Rel(rabbitmq, worker_consolidado, "Consume eventos de lançamentos", "AMQP")
+Rel(worker_consolidado, sql_db_analitico, "Atualiza saldo consolidado", "SQL")
 
-Rel(app_worker, dlq, "Envia mensagens com erro", "AMQP")
-Rel(dlq, admin, "Admin pode reprocessar mensagens da DLQ", "Manual/Automático")
+Rel(worker_consolidado, dlq, "Envia mensagens com erro", "AMQP")
+Rel(dlq, worker_consolidado, "Reprocessa mensagens automaticamente", "AMQP")
+Rel(dlq, tech_admin, "Monitoramento e ação manual", "Dashboard de DevOps")
 
 Rel(app_reports, redis_cache, "Consulta cache para dados rápidos", "Redis Protocol")
-Rel(app_reports, sql_db_analitico, "Consulta saldos consolidados (fallback)", "SQL")
-Rel(app_reports, sql_db_sintetico, "Consulta lançamentos detalhados", "SQL")
-Rel(azure_function, app_reports, "Dispara geração de relatórios", "HTTPS/REST")
+Rel(app_reports, sql_db_analitico, "Consulta saldos consolidados", "SQL")
+
 Rel(app_api, kv, "Consulta secrets (ex.: strings de conexão)", "HTTPS/REST")
-Rel(app_worker, kv, "Consulta secrets (ex.: strings de conexão)", "HTTPS/REST")
+Rel(worker_consolidado, kv, "Consulta secrets (ex.: strings de conexão)", "HTTPS/REST")
 Rel(app_reports, kv, "Consulta secrets (ex.: strings de conexão)", "HTTPS/REST")
 
 Boundary(security_boundary, "Segurança e Autenticação") {
