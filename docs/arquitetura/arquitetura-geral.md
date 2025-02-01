@@ -72,7 +72,7 @@ A comunicação entre os serviços é **assíncrona**, utilizando **RabbitMQ** p
 3️⃣ Caso haja falha no processamento, a mensagem é enviada para a **Dead Letter Queue (DLQ)** para reprocessamento.  
 
 📌 **Diagrama:**  
-![Fluxo de Mensageria](../images/diagramamensageria.png)
+![Fluxo de Mensageria](../images/fluxo-de-mensageria.png)
 
 ### 📌 **Dead Letter Queue (DLQ)**
 📌 **Objetivo:** Garantir que mensagens falhas não sejam perdidas.  
