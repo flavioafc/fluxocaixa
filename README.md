@@ -14,6 +14,7 @@ Ele foi desenvolvido para demonstração de conceitos arquiteturais, **não send
 4. [Documentação Completa](#4-documentação-completa)
 5. [Como Executar e Depurar](#5-como-executar-e-depurar)
 6. [Observações Finais](#6-observações-finais)
+7. [Estimativa de Custos](#7-estimativa-de-custos)
 
 ---
 
@@ -197,4 +198,14 @@ Esta documentação visa garantir que qualquer desenvolvedor consiga rodar, moni
 ✅ Monitoramento integrado com Grafana e Prometheus
 
 Agora qualquer desenvolvedor pode executar a aplicação localmente e entender como cada componente funciona. 🚀🔥
+
+## 7️⃣ Estimativa de Custos
+
+A infraestrutura e os serviços utilizados no **Fluxo de Caixa Diário** possuem custos estimados com base no consumo esperado. A estimativa considera:
+
+✅ Infraestrutura no **Azure** (VMs, Banco de Dados, Cache, Mensageria)  
+✅ Licenciamento de software (ex.: SQL Server, Grafana, Elasticsearch)  
+✅ Custos variáveis baseados em **volume de transações e escalabilidade**  
+
+📄 **Leia mais:** [Estimativa de Custos](./docs/arquitetura/estimativa-custos.md)
 
