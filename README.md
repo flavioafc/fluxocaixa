@@ -89,6 +89,9 @@ A solução foi projetada para ser **modular, escalável e resiliente**, adotand
 ✅ **Escalabilidade e Performance do Worker Consolidado para 50 Req/seg**  
 📄 [Leia mais: ADR-007 - Garantia de Processamento de 50 Req/s](./docs/adrs/ADR-007-Decisao-sobre-processamento-escalabilidade-worker.md)
 
+✅ **Escolha do Worker consolidado como worker service**  
+📄 [Leia mais: ADR-008 - Worker Consolidado](./docs/adrs/ADR-008-Decisao-worker-consolidado.md)
+
 ---
 
 ## 3️⃣ **Monitoramento e Observabilidade**
