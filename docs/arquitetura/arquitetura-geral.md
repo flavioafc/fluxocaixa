@@ -13,7 +13,7 @@ A solução foi projetada para ser **escalável, resiliente e segura**, permitin
 A solução segue um modelo baseado em **Microserviços** e **CQRS (Command Query Responsibility Segregation)**, utilizando **RabbitMQ para comunicação assíncrona** e **Redis para otimização de consultas**.
 
 📌 **Diagrama da Arquitetura Geral:**  
-![Arquitetura Geral](./images/diagrama_solucao.png)
+![Arquitetura Geral](../images/diagrama_solucao.png)
 
 ---
 
