@@ -170,15 +170,15 @@ locust -f locustfile.py --host=http://localhost:5000
 
 ✅ Positivas
 
-O Worker suportará 50 mensagens/segundo sem perder eventos.
-Escalabilidade automática conforme a necessidade.
-Monitoramento ativo para ajustar performance dinamicamente.
-O sistema permanece resiliente mesmo em alta carga.
+- O Worker suportará 50 mensagens/segundo sem perder eventos.
+- Escalabilidade automática conforme a necessidade.
+- Monitoramento ativo para ajustar performance dinamicamente.
+- O sistema permanece resiliente mesmo em alta carga.
 
 ❌ Negativas
 
-Aumento de custo com múltiplas instâncias no Kubernetes.
-Complexidade adicional na configuração de AutoScaling e RabbitMQ.
+- Aumento de custo com múltiplas instâncias no Kubernetes.
+- Complexidade adicional na configuração de AutoScaling e RabbitMQ.
 
 ## 6️⃣ Decisão Final
 Com base na análise, adotamos a abordagem de escalabilidade horizontal, concorrência e auto-scaling para garantir que o Worker Consolidado processe 50 mensagens por segundo.
