@@ -132,23 +132,44 @@ cd fluxo-caixa-diario
 docker-compose up -d
 ```
 
-3️⃣ **Executar a aplicação**
+3️⃣ **Executar as aplicações**
+
+📌 API de Controle de Lançamentos
 ```bash
 cd src/ApiControleLancamentos
 dotnet run
 ```
 
+📌 Worker de Consolidação
+```bash
+cd src/WorkerConsolidado
+dotnet run
+```
+
+📌 API de Relatórios
+```bash
+cd src/ApiRelatorios
+dotnet run
+```
+
+Observação: Se preferir rodar todas as APIs simultaneamente no Visual Studio, pode abrir a solução .sln e rodar todas juntas.
+
+
 4️⃣ **Verificar métricas**
 ```bash
 http://localhost:5116/metrics
 ```
+(Verifica se a API de Controle de Lançamentos está expondo métricas corretamente)
 
 5️⃣ **Acessar Prometheus e Grafana**
 - Prometheus → http://localhost:9090
+(Ver métricas expostas pela aplicação)
+
 - Grafana → http://localhost:3000 (Login: admin / admin)
+(Painéis visuais de monitoramento das métricas)
 
 6️⃣ **Depurar com Visual Studio**
-- Definir ApiControleLancamentos como projeto de inicialização e rodar em modo Debug.
+- Definir ApiControleLancamentos, WorkerConsolidado e ApiRelatorios como projetos de inicialização.
 
 
 ## 6️⃣ Observações Finais
