@@ -86,6 +86,9 @@ A solução foi projetada para ser **modular, escalável e resiliente**, adotand
 ✅ **Uso do RabbitMQ para comunicação assíncrona [ATUAL]**  
 📄 [Leia mais: ADR-006 - Uso do RabbitMQ](./docs/adrs/ADR-006-Decisao-Usar-RabbitMQ.md)
 
+✅ **Escalabilidade e Performance do Worker Consolidado para 50 Req/seg**  
+📄 [Leia mais: ADR-007 - Garantia de Processamento de 50 Req/s](./docs/adrs/ADR-007-Decisao-sobre-processamento-escalabilidade-worker.md)
+
 ---
 
 ## 3️⃣ **Monitoramento e Observabilidade**
