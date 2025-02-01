@@ -55,6 +55,7 @@ A solução adota uma abordagem de **MicroServiços**, **CQRS**, **mensageria as
 
 ### 🏛 **Diagrama da Arquitetura**
 ![Arquitetura Geral](./docs/images/diagramasolucao.png)
+[Plantuml](./docs/plantuml/diagramasolucao.plantuml)
 
 ## 🔹 Principais Decisões Arquiteturais
 
