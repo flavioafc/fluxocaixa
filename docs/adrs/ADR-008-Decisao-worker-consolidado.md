@@ -40,7 +40,7 @@ Essa decisão foi tomada com base nos seguintes fatores:
 ✅ **Integração nativa**: O Worker usa **MassTransit** e pode escalar horizontalmente quando necessário.  
 
 📄 **Fluxo do Worker**:  
-![Fluxo do Worker Consolidado](./images/fluxo-de-mensageria.png)
+![Fluxo do Worker](../images/fluxo-de-mensageria.png)
 
 ---
 
