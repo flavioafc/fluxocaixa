@@ -14,7 +14,7 @@ Ele foi desenvolvido para demonstração de conceitos arquiteturais, **não send
 4. [Documentação Completa](#4-documentação-completa)
 5. [Como Executar e Depurar](#5-como-executar-e-depurar)
 6. [Observações Finais](#6-observações-finais)
-7. [Estimativa de Custos](##7-estimativa-de-custos)
+7. [Estimativa de Custos](#7-estimativa-de-custos)
 
 ---
 
