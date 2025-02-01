@@ -110,7 +110,8 @@ Os **Requisitos Não-Funcionais (RNFs)** garantem que a solução não apenas fu
 Eles cobrem aspectos fundamentais como **performance, segurança, escalabilidade, observabilidade e controle de falhas**, permitindo que a solução seja utilizada **de forma confiável em produção**.
 
 📄 **Documentação Complementar**:
-- [Documento de Segurança](../requisitos/DocumentoDeSeguranca.md)  
-- [Arquitetura da Solução](../arquitetura/arquitetura-geral.md)  
-- [Observabilidade e Logs](../requisitos/Observabilidade.md)  
-- [DevOps e Deploy](../requisitos/DevOpsEDeploy.md)  
+- [Requisitos de Segurança](./seguranca.md)
+- [Arquitetura de Segurança](../../arquitetura/arquitetura-seguranca.md)  
+- [Arquitetura da Solução](../../arquitetura/arquitetura-geral.md)  
+- [Observabilidade e Logs](../../monitoramento/monitoramento-observabilidade.md)  
+- [DevOps e Deploy](../../devops/devops-deploy.md)  
