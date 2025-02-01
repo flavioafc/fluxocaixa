@@ -67,6 +67,7 @@ A comunicação entre os serviços é **assíncrona**, utilizando **RabbitMQ** p
 
 ### 📌 **RabbitMQ - Comunicação Assíncrona**
 📌 **Exemplo de Fluxo de Mensagens**:
+
 1️⃣ **API de Controle de Lançamentos** publica um evento de novo lançamento no **RabbitMQ**.  
 2️⃣ **Worker Consolidado** consome o evento e calcula o saldo diário.  
 3️⃣ Caso haja falha no processamento, a mensagem é enviada para a **Dead Letter Queue (DLQ)** para reprocessamento.  
