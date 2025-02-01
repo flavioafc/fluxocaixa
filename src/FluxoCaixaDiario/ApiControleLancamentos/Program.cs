@@ -10,6 +10,7 @@ using ApiControleLancamentos.Infra.Services;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Prometheus;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 
@@ -75,6 +76,9 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
+builder.Services.AddApplicationInsightsTelemetry();
+
+
 // Configuração de controllers
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer(); 
@@ -94,10 +98,13 @@ using (var scope = app.Services.CreateScope())
     context.Database.Migrate();
 }
 
-// Outros middlewares
+
+// Adicionar suporte ao servidor de métricas
+app.UseMetricServer();
+app.UseHttpMetrics();
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
 
 app.UseRouting();
 app.MapControllers();
