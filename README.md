@@ -54,8 +54,8 @@ A modelagem da solução segue os princípios do **Domain-Driven Design (DDD)**,
 A solução adota uma abordagem de **MicroServiços**, **CQRS**, **mensageria assíncrona** e **monitoramento avançado**.
 
 ### 🏛 **Diagrama da Arquitetura**
-![Arquitetura Geral](./docs/images/diagramasolucao.png)
-[Plantuml](./docs/plantuml/diagramasolucao.plantuml)
+![Arquitetura Geral](./docs/images/diagrama_solucao.png)
+[Plantuml](./docs/plantuml/diagrama_solucao.plantuml)
 
 ## 🔹 Principais Decisões Arquiteturais
 
