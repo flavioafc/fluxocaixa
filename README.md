@@ -43,7 +43,11 @@ A modelagem da solução segue os princípios do **Domain-Driven Design (DDD)**,
 📌 Responsável por **segurança, mensageria e caching**, garantindo resiliência e performance.  
 - **RabbitMQ** → Comunicação assíncrona entre os contextos.  
 - **Azure Key Vault** → Gerenciamento seguro de credenciais.  
-- **Redis Cache** → Otimização das consultas de relatórios.  
+- **Redis Cache** → Otimização das consultas de relatórios.
+ 
+🔹 **Fluxo de negócio**
+
+![](./docs/images/fluxodenegocio.png)
 
 📄 **Leia mais: [Mapeamento de Domínios e Capacidades de negócio](./docs/requisitos/MapeamentoDominios.md)**  
 
