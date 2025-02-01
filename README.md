@@ -101,8 +101,8 @@ A solução possui **logs estruturados, métricas e rastreamento distribuído** 
 
 📌 **Ferramentas Utilizadas**:
 ✅ **Prometheus + Grafana** → Coleta e exibe métricas da aplicação.  
-✅ **Serilog + Elasticsearch** → Armazena e analisa logs estruturados.  
-✅ **OpenTelemetry + Jaeger** → Rastreia requisições distribuídas entre os serviços.  
+✅ **Serilog (Arquivos JSON ou Azure Log Analytics)** → Armazena e analisa logs estruturados.  
+✅ **OpenTelemetry + Jaeger** → Rastreia requisições distribuídas entre os serviços. 
 
 📄 [Leia mais: Observabilidade e Logs](./docs/monitoramento/monitoramento-observabilidade.md)
 
@@ -204,7 +204,7 @@ Agora qualquer desenvolvedor pode executar a aplicação localmente e entender c
 A infraestrutura e os serviços utilizados no **Fluxo de Caixa Diário** possuem custos estimados com base no consumo esperado. A estimativa considera:
 
 ✅ Infraestrutura no **Azure** (VMs, Banco de Dados, Cache, Mensageria)  
-✅ Licenciamento de software (ex.: SQL Server, Grafana, Elasticsearch)  
+✅ Licenciamento de software (ex.: SQL Server, Grafana, Linux)  
 ✅ Custos variáveis baseados em **volume de transações e escalabilidade**  
 
 📄 **Leia mais:** [Estimativa de Custos](./docs/arquitetura/estimativa-custos.md)
