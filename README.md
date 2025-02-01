@@ -28,6 +28,8 @@ A solução segue os princípios do **Domain-Driven Design (DDD)**, separando os
 
 ![Mapeamento do Domínio](./docs/images/dominio-bounded-contexts.png)
 
+![Plantuml](./docs/plantuml/dominio-bounded-contexts.plantuml)
+
 ### 📌 **Bounded Contexts - Gestão Financeira**
 A modelagem da solução segue os princípios do **Domain-Driven Design (DDD)**, organizando os domínios e suas fronteiras.
 
