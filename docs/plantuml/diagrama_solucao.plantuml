@@ -14,6 +14,7 @@ Person(tech_admin, "Administrador Técnico", "Gerencia infraestrutura e monitora
 
 Boundary(security_layer, "Camada de Segurança - Firewall e NSG") {
     System_Boundary(system_boundary, "Sistema de Fluxo de Caixa Diário") {
+        Container(apim, "Azure API Management (APIM)", "API Gateway", "Gerencia, protege e expõe APIs para consumidores internos e externos.")
         Container(app_api, "APIControleLancamentos", "API REST (.NET 8)", "Registra lançamentos e publica eventos.")
         ContainerDb(sql_db_sintetico, "Banco Transacional (Lançamentos)", "Azure SQL", "Armazena lançamentos detalhados.")
         
@@ -29,8 +30,11 @@ Boundary(security_layer, "Camada de Segurança - Firewall e NSG") {
     }
 }
 
-Rel(user, app_api, "Registra lançamentos (créditos/débitos)", "HTTPS/REST")
-Rel(admin, app_reports, "Consulta relatórios consolidados", "HTTPS/REST")
+Rel(user, apim, "Interage via API Gateway", "HTTPS")
+Rel(admin, apim, "Interage via API Gateway", "HTTPS")
+Rel(apim, app_api, "Encaminha requisições para a API de Lançamentos", "HTTPS")
+Rel(apim, app_reports, "Encaminha requisições para a API de Relatórios", "HTTPS")
+Rel(apim, worker_consolidado, "Gerencia chamadas assíncronas", "HTTPS")
 
 Rel(app_api, sql_db_sintetico, "Persiste lançamentos", "SQL")
 Rel(app_api, rabbitmq, "Publica eventos de novos lançamentos", "AMQP")
@@ -50,8 +54,8 @@ Rel(app_reports, kv, "Consulta secrets (ex.: strings de conexão)", "HTTPS/REST"
 
 Boundary(security_boundary, "Segurança e Autenticação") {
     Component(auth, "Autenticação e Autorização", "Azure AD", "Controla acesso às APIs e serviços.")
-    Rel(app_api, auth, "Autentica usuários via JWT", "OAuth 2.0")
-    Rel(app_reports, auth, "Autentica administradores via JWT", "OAuth 2.0")
+    Rel(apim, auth, "Autentica usuários via JWT", "OAuth 2.0")
 }
 
 @enduml
+
