@@ -50,6 +50,40 @@ resource "azurerm_key_vault" "keyvault" {
   tenant_id           = var.tenant_id
 }
 
+resource "azurerm_api_management" "apim" {
+  name                = "fluxocaixa-apim"
+  location            = azurerm_resource_group.fluxocaixa_rg.location
+  resource_group_name = azurerm_resource_group.fluxocaixa_rg.name
+  publisher_name      = "Fluxo Caixa Team"
+  publisher_email     = "admin@fluxocaixa.com"
+
+  sku_name = "Consumption_0" # Pode ser alterado para Developer, Basic, Standard, Premium
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  tags = {
+    Environment = "Dev"
+    Project     = "FluxoCaixa"
+  }
+}
+
+resource "azurerm_api_management_api" "api_lancamentos" {
+  name                = "api-controle-lancamentos"
+  resource_group_name = azurerm_resource_group.fluxocaixa_rg.name
+  api_management_name = azurerm_api_management.apim.name
+  revision            = "1"
+  display_name        = "API Controle de Lançamentos"
+  path                = "lancamentos"
+  protocols           = ["https"]
+
+  import {
+    content_format = "openapi"
+    content_value  = file("${path.module}/swagger-lancamentos.json")
+  }
+}
+
 output "kube_config" {
   value     = azurerm_kubernetes_cluster.aks.kube_config_raw
   sensitive = true
@@ -57,7 +91,7 @@ output "kube_config" {
 
 resource "kubernetes_deployment" "rabbitmq" {
   metadata {
-    name = "rabbitmq"
+    name      = "rabbitmq"
     namespace = "default"
   }
 
