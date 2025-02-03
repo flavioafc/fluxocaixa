@@ -42,6 +42,8 @@ builder.Services.AddMassTransit(x =>
         // Agora: pegando do rabbitOptions
         cfg.ReceiveEndpoint(rabbitOptions.QueueName, e =>
         {
+            e.PrefetchCount = 20;
+            e.ConcurrentMessageLimit = 10;
             e.Bind(rabbitOptions.ExchangeName);
         });
     });

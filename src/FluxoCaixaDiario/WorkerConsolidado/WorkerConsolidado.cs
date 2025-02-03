@@ -89,8 +89,8 @@ namespace WorkerConsolidado
                 autoDelete: false,
                 arguments: null);
 
-            // Prefetch para controlar quantas mensagens o worker consome por vez
-            await _channel.BasicQosAsync(0, 1, false);
+            // Prefetch Permite que cada worker processe até 10 mensagens simultaneamente
+            await _channel.BasicQosAsync(0, 10, false);
 
             // Cria o consumidor
             var consumer = new AsyncEventingBasicConsumer(_channel);
