@@ -1,0 +1,17 @@
+@startuml
+actor Cliente
+participant "Azure API Management (APIM)" as APIM
+participant "API Controle de Lançamentos" as API_Lancamentos
+participant "API de Relatórios" as API_Relatorios
+
+Cliente -> APIM: Requisição (JWT Token)
+APIM -> API_Lancamentos: Encaminha requisição (segura)
+API_Lancamentos -> APIM: Retorna resposta
+APIM -> Cliente: Resposta formatada
+
+Cliente -> APIM: Requisição de Relatórios
+APIM -> API_Relatorios: Encaminha requisição (segura)
+API_Relatorios -> APIM: Retorna relatório
+APIM -> Cliente: Resposta formatada
+
+@enduml

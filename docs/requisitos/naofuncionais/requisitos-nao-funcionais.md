@@ -11,7 +11,7 @@ Abaixo estão os **principais requisitos não-funcionais** da solução.
 
 ### 🚀 **RNF-1: Escalabilidade**
 - A solução deve suportar um aumento de carga sem degradação significativa de desempenho.
-- O sistema deve ser capaz de lidar com pelo menos **50 requisições por segundo** no pico de utilização.
+- O **Worker Consolidado** deve ser capaz de processar **50 requisições por segundo**, com no máximo **5% de perda de requisições**.
 - **Escalabilidade horizontal**: Serviços podem rodar em múltiplas instâncias sem estado.
 - **RabbitMQ** pode distribuir mensagens entre múltiplos Workers.
 
@@ -21,15 +21,28 @@ Abaixo estão os **principais requisitos não-funcionais** da solução.
 
 ### 🔄 **RNF-2: Resiliência**
 - O sistema deve se recuperar automaticamente de falhas de componentes individuais.
-- **Mensageria (RabbitMQ)** garantirá a **entrega garantida** dos eventos.
-- **Retentativas** e **fallbacks** serão implementados para evitar falhas inesperadas.
+- **Mensageria (RabbitMQ)** garantirá a **entrega garantida** dos eventos, evitando a perda de mensagens.
+- **Dead Letter Queue (DLQ)** será utilizada para armazenar mensagens não processadas corretamente.
+- **Retry automático e fallback** serão implementados para evitar falhas inesperadas.
 - A base de dados deve ser configurada para **backup automático** e **failover**.
 
 📄 **Leia mais:** [Arquitetura de Resiliência](../arquitetura/arquitetura-geral.md)  
 
 ---
 
-### 🔐 **RNF-3: Segurança**
+### ⚡ **RNF-3: Disponibilidade e Desacoplamento**
+- O **Serviço de Controle de Lançamentos** não pode ser impactado caso o **Worker Consolidado** falhe ou fique indisponível.
+- O **Controle de Lançamentos** deve continuar registrando operações mesmo se a **consolidação diária** estiver temporariamente inativa.
+- O RabbitMQ garante que as mensagens serão entregues quando o Worker Consolidado voltar ao ar.
+- A arquitetura deve suportar **degradação graciosa**:  
+  ✅ O **Controle de Lançamentos** sempre disponível.  
+  ✅ O **Worker Consolidado** pode ser reiniciado sem impacto na API.  
+
+📄 **Leia mais:** [Mensageria com RabbitMQ](../arquitetura/mensageria.md)
+
+---
+
+### 🔐 **RNF-4: Segurança**
 - **Autenticação** via **OAuth 2.0 e OpenID Connect** (Utilizando Azure AD).
 - **Autorização** baseada em **JWT**, com políticas de acesso granular.
 - **TLS/SSL** obrigatório para APIs, RabbitMQ e comunicação com banco de dados.
@@ -37,15 +50,6 @@ Abaixo estão os **principais requisitos não-funcionais** da solução.
 - **Gerenciamento de segredos** no **Azure Key Vault** ou outro cofre seguro.
 
 📄 **Leia mais:** [Documento de Segurança](../naofuncionais/seguranca.md)  
-
----
-
-### ⚡ **RNF-4: Performance**
-- A resposta da API deve ter um tempo médio de **latência abaixo de 200ms**.
-- Consultas de relatórios frequentes serão **cacheadas no Redis** para melhor tempo de resposta.
-- As operações mais pesadas (ex.: consolidação de fluxo de caixa) serão **processadas em background (RabbitMQ + Worker)**.
-
-📄 **Leia mais:** [ADR-003: Cache para Relatórios](../adr/ADR-0003-Cache.md)  
 
 ---
 
@@ -57,7 +61,7 @@ Abaixo estão os **principais requisitos não-funcionais** da solução.
   - Erros e falhas em requisições.
 - Alertas configurados para detectar **padrões anômalos** (ex.: falhas recorrentes de login).
 
-📄 **Leia mais:** [Observabilidade e Logs](../requisitos/Observabilidade.md)  
+📄 **Leia mais:** [Observabilidade e Logs](../../monitoramento/monitoramento-observabilidade.md)  
 
 ---
 
@@ -89,16 +93,25 @@ Abaixo estão os **principais requisitos não-funcionais** da solução.
 
 ---
 
+### 🚦 **RNF-9: Controle de Perda de Mensagens**
+- O **Worker Consolidado** deve processar **50 requisições por segundo**.
+- A **taxa máxima de perda** de mensagens não pode ultrapassar **5%**.
+- As mensagens que falharem após múltiplas tentativas serão enviadas para a **Dead Letter Queue (DLQ)** no RabbitMQ.
+- Métricas de erro devem ser **monitoradas no Grafana/Prometheus** para garantir que o sistema **não ultrapasse o limite de erro permitido**.
+
+📄 **Leia mais:** [Monitoramento e Alertas](../../monitoramento/monitoramento-observabilidade.md)  
+
+---
+
 ## 3️⃣ Conclusão
 
 Os **Requisitos Não-Funcionais (RNFs)** garantem que a solução não apenas funcione corretamente, mas seja **segura, escalável e resiliente**.  
 
-Eles cobrem aspectos fundamentais como **performance, segurança, escalabilidade, monitoramento e testes**, permitindo que a solução seja utilizada **de forma confiável em produção**.
+Eles cobrem aspectos fundamentais como **performance, segurança, escalabilidade, observabilidade e controle de falhas**, permitindo que a solução seja utilizada **de forma confiável em produção**.
 
 📄 **Documentação Complementar**:
-- [Documento de Segurança](../requisitos/DocumentoDeSeguranca.md)  
-- [Arquitetura da Solução](../arquitetura/arquitetura-geral.md)  
-- [Observabilidade e Logs](../requisitos/Observabilidade.md)  
-- [DevOps e Deploy](../requisitos/DevOpsEDeploy.md)  
-
----
+- [Requisitos de Segurança](./seguranca.md)
+- [Arquitetura de Segurança](../../arquitetura/arquitetura-seguranca.md)  
+- [Arquitetura da Solução](../../arquitetura/arquitetura-geral.md)  
+- [Observabilidade e Logs](../../monitoramento/monitoramento-observabilidade.md)  
+- [DevOps e Deploy](../../devops/devops-deploy.md)  

@@ -10,9 +10,11 @@ Ele foi desenvolvido para demonstração de conceitos arquiteturais, **não send
 ## 📖 Índice
 1. [Visão Geral](#1-visão-geral)
 2. [Arquitetura da Solução](#2-arquitetura-da-solução)
-3. [Documentação Completa](#3-documentação-completa)
-4. [Como Executar](#4-como-executar)
-5. [Observações Finais](#5-observações-finais)
+3. [Monitoramento e Observabilidade](#3-monitoramento-e-observabilidade)
+4. [Documentação Completa](#4-documentação-completa)
+5. [Como Executar e Depurar](#5-como-executar-e-depurar)
+6. [Observações Finais](#6-observações-finais)
+7. [Estimativa de Custos](#7-estimativa-de-custos)
 
 ---
 
@@ -27,6 +29,8 @@ A solução segue os princípios do **Domain-Driven Design (DDD)**, separando os
 
 ![Mapeamento do Domínio](./docs/images/dominio-bounded-contexts.png)
 
+[Plantuml](./docs/plantuml/dominio-bounded-contexts.plantuml)
+
 ### 📌 **Bounded Contexts - Gestão Financeira**
 A modelagem da solução segue os princípios do **Domain-Driven Design (DDD)**, organizando os domínios e suas fronteiras.
 
@@ -40,33 +44,25 @@ A modelagem da solução segue os princípios do **Domain-Driven Design (DDD)**,
 📌 Responsável por **segurança, mensageria e caching**, garantindo resiliência e performance.  
 - **RabbitMQ** → Comunicação assíncrona entre os contextos.  
 - **Azure Key Vault** → Gerenciamento seguro de credenciais.  
-- **Redis Cache** → Otimização das consultas de relatórios.  
+- **Redis Cache** → Otimização das consultas de relatórios.
+ 
+🔹 **Fluxo de negócio**
+
+![](./docs/images/fluxodenegocio.png)
 
 📄 **Leia mais: [Mapeamento de Domínios e Capacidades de negócio](./docs/requisitos/MapeamentoDominios.md)**  
-
-
-
-### 🏗 **Componentes Principais**
-1. **API de Controle de Lançamentos**  
-   - Gerencia os lançamentos financeiros (créditos e débitos).  
-   - Persiste dados no banco transacional e publica eventos no RabbitMQ.  
-2. **Worker de Consolidação**  
-   - Consome mensagens de eventos e processa o saldo diário consolidado.  
-   - Persiste dados no banco analítico.  
-3. **API de Relatórios**  
-   - Exibe dados consolidados via API e permite exportação de relatórios.
-
-### 🔄 **Diagrama de Fluxo**
-![Fluxo de Negócio](./docs/images/fluxodenegocio.png)
 
 ---
 
 ## 2️⃣ **Arquitetura da Solução**
 
-A solução adota uma abordagem de **MicroServiços**, **CQRS**, e **mensageria assíncrona**.
+A solução adota uma abordagem de **MicroServiços**, **CQRS**, **mensageria assíncrona** e **monitoramento avançado**.
 
-### 🏛 **Desenho da Arquitetura**
-![Arquitetura Geral](./docs/images/diagramasolucao.png)
+📄 **Leia mais: [Documento Arquitetura Geral](./docs/arquitetura/arquitetura-geral.md)**  
+
+### 🏛 **Diagrama da Arquitetura**
+![Arquitetura Geral](./docs/images/diagrama_solucao.png)
+[Plantuml](./docs/plantuml/diagrama_solucao.plantuml)
 
 ## 🔹 Principais Decisões Arquiteturais
 
@@ -91,28 +87,31 @@ A solução foi projetada para ser **modular, escalável e resiliente**, adotand
 ✅ **Uso do RabbitMQ para comunicação assíncrona [ATUAL]**  
 📄 [Leia mais: ADR-006 - Uso do RabbitMQ](./docs/adrs/ADR-006-Decisao-Usar-RabbitMQ.md)
 
+✅ **Escalabilidade e Performance do Worker Consolidado para 50 Req/seg**  
+📄 [Leia mais: ADR-007 - Garantia de Processamento de 50 Req/s](./docs/adrs/ADR-007-Decisao-sobre-processamento-escalabilidade-worker.md)
 
+✅ **Escolha do Worker consolidado como worker service**  
+📄 [Leia mais: ADR-008 - Worker Consolidado](./docs/adrs/ADR-008-Decisao-worker-consolidado.md)
 
----
-
-## 🚀 **Escalabilidade e Resiliência**
-
-A solução foi projetada para ser **horizontamente escalável** e suportar alta disponibilidade.
-
-✅ **Escalabilidade**  
-- Suporte a **múltiplas instâncias** de APIs e Workers.  
-- RabbitMQ balanceia carga distribuindo mensagens entre Workers.  
-
-✅ **Resiliência**  
-- Uso de **retry automático** e **dead-letter queues (DLQ)** para evitar perda de mensagens.  
-- Failover e replicação para garantir **alta disponibilidade do banco de dados**.  
-
-📄 [Leia mais: Arquitetura e Infraestrutura](./docs/arquitetura/arquitetura-geral.md)
-
+✅ **Escolha do uso do APIM**  
+📄 [Leia mais: ADR-009 - APIM](./docs/adrs/ADR-009-Decisao-Uso-APIM.md)
 
 ---
 
-## 3️⃣ **Documentação Completa**
+## 3️⃣ **Monitoramento e Observabilidade**
+
+A solução possui **logs estruturados, métricas e rastreamento distribuído** para garantir **visibilidade completa** da aplicação.
+
+📌 **Ferramentas Utilizadas**:
+✅ **Prometheus + Grafana** → Coleta e exibe métricas da aplicação.  
+✅ **Serilog (Arquivos JSON ou Azure Log Analytics)** → Armazena e analisa logs estruturados.  
+✅ **OpenTelemetry + Jaeger** → Rastreia requisições distribuídas entre os serviços. 
+
+📄 [Leia mais: Observabilidade e Logs](./docs/monitoramento/monitoramento-observabilidade.md)
+
+---
+
+## 4️⃣ **Documentação Completa**
 
 📌 **Requisitos de Negócio e Técnicos**:
 - [Documento de Requisitos](./docs/requisitos/documentorequisitos.md)  
@@ -122,9 +121,9 @@ A solução foi projetada para ser **horizontamente escalável** e suportar alta
 - [Arquitetura de Segurança](./docs/arquitetura/arquitetura-seguranca.md)  
 - [Documento de Segurança](./docs/requisitos/naofuncionais/seguranca.md)  
 
-
 🚀 **DevOps e Infraestrutura**:
 - [DevOps e Deploy](./docs/devops/devops-deploy.md)  
+- [Infraestrutura como Código (Terraform)](./docs/devops/Terraform.md)  
 - [Setup Local](./docs/setup/setup-local.md)  
 
 📊 **Monitoramento e Observabilidade**:
@@ -132,12 +131,11 @@ A solução foi projetada para ser **horizontamente escalável** e suportar alta
 
 ---
 
-## 4️⃣ **Como Executar**
+## 5️⃣ **Como Executar e Depurar**
 
 ### ✅ **Pré-requisitos**
-- **SDK do .NET 8** instalado.
-- **Docker** para executar serviços dependentes (RabbitMQ, SQL, Redis).
-- **Conta no Azure** (caso queira testar recursos em nuvem).
+- **.NET 8 SDK** instalado.
+- **Docker** para executar serviços dependentes (RabbitMQ, SQL, Redis, Prometheus, Grafana).
 - **Git** para clonar o repositório.
 
 ### 🛠 **Passo a Passo**
@@ -146,3 +144,71 @@ A solução foi projetada para ser **horizontamente escalável** e suportar alta
 ```bash
 git clone https://github.com/seu-usuario/fluxo-caixa-diario.git
 cd fluxo-caixa-diario
+```
+
+2️⃣ **Subir os serviços no Docker**
+```bash
+docker-compose up -d
+```
+
+3️⃣ **Executar as aplicações**
+
+📌 API de Controle de Lançamentos
+```bash
+cd src/ApiControleLancamentos
+dotnet run
+```
+
+📌 Worker de Consolidação
+```bash
+cd src/WorkerConsolidado
+dotnet run
+```
+
+📌 API de Relatórios
+```bash
+cd src/ApiRelatorios
+dotnet run
+```
+
+Observação: Se preferir rodar todas as APIs simultaneamente no Visual Studio, pode abrir a solução .sln e rodar todas juntas.
+
+
+4️⃣ **Verificar métricas**
+```bash
+http://localhost:5116/metrics
+```
+(Verifica se a API de Controle de Lançamentos está expondo métricas corretamente)
+
+5️⃣ **Acessar Prometheus e Grafana**
+- Prometheus → http://localhost:9090
+(Ver métricas expostas pela aplicação)
+
+- Grafana → http://localhost:3000 (Login: admin / admin)
+(Painéis visuais de monitoramento das métricas)
+
+6️⃣ **Depurar com Visual Studio**
+- Definir ApiControleLancamentos, WorkerConsolidado e ApiRelatorios como projetos de inicialização.
+
+
+## 6️⃣ Observações Finais
+Esta documentação visa garantir que qualquer desenvolvedor consiga rodar, monitorar e debugar a aplicação Fluxo de Caixa Diário de maneira clara e eficiente.
+
+✅ Passo a passo completo de execução e debug
+
+✅ Arquitetura detalhada e decisões documentadas
+
+✅ Monitoramento integrado com Grafana e Prometheus
+
+Agora qualquer desenvolvedor pode executar a aplicação localmente e entender como cada componente funciona. 🚀🔥
+
+## 7️⃣ Estimativa de Custos
+
+A infraestrutura e os serviços utilizados no **Fluxo de Caixa Diário** possuem custos estimados com base no consumo esperado. A estimativa considera:
+
+✅ Infraestrutura no **Azure** (VMs, Banco de Dados, Cache, Mensageria)  
+✅ Licenciamento de software (ex.: SQL Server, Grafana, Linux)  
+✅ Custos variáveis baseados em **volume de transações e escalabilidade**  
+
+📄 **Leia mais:** [Estimativa de Custos](./docs/arquitetura/estimativa-custos.md)
+

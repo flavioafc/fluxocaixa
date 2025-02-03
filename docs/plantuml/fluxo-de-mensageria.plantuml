@@ -1,0 +1,26 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_LEFT_RIGHT()
+
+title Fluxo de Mensageria - RabbitMQ
+
+Person(user, "Usuário do Comércio", "Registra lançamentos financeiros.")
+Container(api_lancamentos, "API Controle de Lançamentos", ".NET 8", "Registra lançamentos e publica eventos no RabbitMQ.")
+ContainerQueue(rabbitmq, "RabbitMQ", "Mensageria", "Distribui eventos para os consumidores.")
+Container(worker, "Worker Consolidado", ".NET 8", "Processa eventos e consolida saldos diários.")
+ContainerQueue(dlq, "Dead Letter Queue (DLQ)", "Mensageria", "Armazena mensagens que falharam.")
+Container(api_relatorios, "API Relatórios", ".NET 8", "Consulta os saldos consolidados.")
+ContainerDb(banco_transacional, "Banco Transacional", "SQL Server", "Armazena lançamentos detalhados.")
+ContainerDb(banco_analitico, "Banco Analítico", "SQL Server", "Armazena saldos consolidados.")
+
+Rel(user, api_lancamentos, "Registra lançamento", "REST API")
+Rel(api_lancamentos, banco_transacional, "Persiste lançamento", "SQL")
+Rel(api_lancamentos, rabbitmq, "Publica evento de novo lançamento", "AMQP")
+Rel(rabbitmq, worker, "Consume eventos de lançamento", "AMQP")
+Rel(worker, banco_analitico, "Atualiza saldo consolidado", "SQL")
+Rel(worker, dlq, "Envia mensagens falhas para DLQ", "AMQP")
+Rel(api_relatorios, banco_analitico, "Consulta saldos consolidados", "SQL")
+
+@enduml
