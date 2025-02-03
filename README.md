@@ -8,7 +8,7 @@ Ele foi desenvolvido para demonstração de conceitos arquiteturais, **não send
 ---
 
 ## 📖 Índice
-1. [Visão Geral](#1-visão-geral)
+1. [Visão Geral](#1%EF%B8%8F%E2%83%A3-vis%C3%A3o-geral)
 2. [Arquitetura da Solução](#2-arquitetura-da-solução)
 3. [Monitoramento e Observabilidade](#3-monitoramento-e-observabilidade)
 4. [Documentação Completa](#4-documentação-completa)
