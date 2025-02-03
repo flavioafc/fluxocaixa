@@ -93,6 +93,9 @@ A solução foi projetada para ser **modular, escalável e resiliente**, adotand
 ✅ **Escolha do Worker consolidado como worker service**  
 📄 [Leia mais: ADR-008 - Worker Consolidado](./docs/adrs/ADR-008-Decisao-worker-consolidado.md)
 
+✅ **Escolha do uso do APIM**  
+📄 [Leia mais: ADR-009 - APIM](./docs/adrs/ADR-009-Decisao-Uso-APIM.md)
+
 ---
 
 ## 3️⃣ **Monitoramento e Observabilidade**
