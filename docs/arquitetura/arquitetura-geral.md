@@ -26,7 +26,7 @@ A solução segue um modelo baseado em **Microserviços** e **CQRS (Command Quer
 ✅ **Logging centralizado** e rastreamento de requisições.  
 ✅ **Redirecionamento de tráfego** para diferentes versões das APIs.  
 
-📝![Requisitos](../requisitos/APIM-Requisitos-arquiteturais.md)
+📝 **Leia mais:** [Documento de Requisitos APIM](../requisitos/APIM-Requisitos-arquiteturais.md)
 
 ---
 
