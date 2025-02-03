@@ -68,5 +68,5 @@ A adoção do **Azure API Management (APIM)** traz os seguintes benefícios:
 ## Decisão Final
 O **Azure API Management (APIM)** foi escolhido para gerenciar as APIs, garantindo **segurança, escalabilidade e monitoramento**. A solução atenderá os requisitos de arquitetura e facilitará a gestão dos serviços expostos.
 
-📄 **Leia mais sobre a Infraestrutura e Configuração do APIM em** [Terraform - APIM](../devops/Terraform.md)
+📄 **Leia mais sobre a Infraestrutura e Configuração do APIM em** [Terraform - APIM](../devops/iac-provisionamento.md)
 
