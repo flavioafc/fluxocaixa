@@ -13,8 +13,9 @@ Ele foi desenvolvido para demonstração de conceitos arquiteturais, **não send
 3. [Monitoramento e Observabilidade](#3-monitoramento-e-observabilidade)
 4. [Documentação Completa](#4-documentação-completa)
 5. [Como Executar e Depurar](#5-como-executar-e-depurar)
-6. [Observações Finais](#6-observações-finais)
-7. [Estimativa de Custos](#7-estimativa-de-custos)
+6. [Estimativa de Custos](#6-estimativa-de-custos)
+7. [Observações Finais](#7-observações-finais)
+8. [Pontos de melhorias e Débitos Técnicos](#8-pontos-de-melhoria)
 
 ---
 
@@ -190,8 +191,17 @@ http://localhost:5116/metrics
 6️⃣ **Depurar com Visual Studio**
 - Definir ApiControleLancamentos, WorkerConsolidado e ApiRelatorios como projetos de inicialização.
 
+## 6️⃣ Estimativa de Custos
 
-## 6️⃣ Observações Finais
+A infraestrutura e os serviços utilizados no **Fluxo de Caixa Diário** possuem custos estimados com base no consumo esperado. A estimativa considera:
+
+✅ Infraestrutura no **Azure** (VMs, Banco de Dados, Cache, Mensageria)  
+✅ Licenciamento de software (ex.: SQL Server, Grafana, Linux)  
+✅ Custos variáveis baseados em **volume de transações e escalabilidade**  
+
+📄 **Leia mais:** [Estimativa de Custos](./docs/arquitetura/estimativa-custos.md)
+
+## 7️⃣ Observações Finais
 Esta documentação visa garantir que qualquer desenvolvedor consiga rodar, monitorar e debugar a aplicação Fluxo de Caixa Diário de maneira clara e eficiente.
 
 ✅ Passo a passo completo de execução e debug
@@ -202,13 +212,8 @@ Esta documentação visa garantir que qualquer desenvolvedor consiga rodar, moni
 
 Agora qualquer desenvolvedor pode executar a aplicação localmente e entender como cada componente funciona. 🚀🔥
 
-## 7️⃣ Estimativa de Custos
+## 8️⃣ **Pontos de Melhoria e Débito Técnico**
+A solução apresenta algumas oportunidades de evolução e ajustes técnicos para otimizar performance, escalabilidade e observabilidade.
 
-A infraestrutura e os serviços utilizados no **Fluxo de Caixa Diário** possuem custos estimados com base no consumo esperado. A estimativa considera:
-
-✅ Infraestrutura no **Azure** (VMs, Banco de Dados, Cache, Mensageria)  
-✅ Licenciamento de software (ex.: SQL Server, Grafana, Linux)  
-✅ Custos variáveis baseados em **volume de transações e escalabilidade**  
-
-📄 **Leia mais:** [Estimativa de Custos](./docs/arquitetura/estimativa-custos.md)
+📄 **Leia mais:** [Pontos de Melhoria e Débito Técnico](./docs/arquitetura/Melhorias-Debitos-Tecnicos.md)
 
