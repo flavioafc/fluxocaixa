@@ -4,9 +4,9 @@
 
 Este documento define os requisitos arquiteturais para o uso do **Azure API Management (APIM)** na solução **Fluxo de Caixa Diário**. O APIM será utilizado para **centralizar, proteger e gerenciar as APIs**, garantindo **segurança, escalabilidade e observabilidade**.
 
-![Diagrama fluxo APIM](./docs/images/documento_requisitos_apim.png)
+![Diagrama fluxo APIM](../images/documento_requisitos_apim.png)
 
-[Plantuml](./docs/plantuml/documentos_requisitos_apim.plantuml)
+[Plantuml](../plantuml/documentos_requisitos_apim.plantuml)
 
 ---
 
