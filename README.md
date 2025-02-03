@@ -134,6 +134,8 @@ A solução possui **logs estruturados, métricas e rastreamento distribuído** 
 
 ## 5️⃣ **Como Executar e Depurar**
 
+📄 **Leia mais: [Setup Local](./docs/arquitetura/setup-local.md)**  
+
 ### ✅ **Pré-requisitos**
 - **.NET 8 SDK** instalado.
 - **Docker** para executar serviços dependentes (RabbitMQ, SQL, Redis, Prometheus, Grafana).
