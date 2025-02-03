@@ -26,6 +26,8 @@ A solução segue um modelo baseado em **Microserviços** e **CQRS (Command Quer
 ✅ **Logging centralizado** e rastreamento de requisições.  
 ✅ **Redirecionamento de tráfego** para diferentes versões das APIs.  
 
+📝![Requisitos](../requisitos/APIM-Requisitos-arquiteturais.md)
+
 ---
 
 ### **📝 API de Controle de Lançamentos** (`ApiControleLancamentos`)  
