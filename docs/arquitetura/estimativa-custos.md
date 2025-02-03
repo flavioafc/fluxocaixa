@@ -16,6 +16,7 @@ Os custos são calculados com base em **instâncias específicas** da Azure, pre
 | **API de Controle de Lançamentos** | Serviço em .NET 8 que registra lançamentos e publica eventos. | Azure App Service | P1V3 (2 instâncias) | **US$ 200 - US$ 400** |
 | **Worker Consolidado** | Serviço em .NET 8 que processa eventos e calcula saldos. | Azure Kubernetes Service (AKS) | 2vCPU / 4GB RAM (2 pods) | **US$ 150 - US$ 300** |
 | **Serviço de Relatórios** | API em .NET 8 que fornece dados sintéticos e analíticos. | Azure App Service | P1V3 (1 instância) | **US$ 100 - US$ 200** |
+| **Azure API Management (APIM)** | Gateway de APIs para segurança, rate limiting e caching. | APIM Standard | S1 | **US$ 600 - US$ 900** |
 
 ---
 
@@ -45,6 +46,7 @@ Os custos são calculados com base em **instâncias específicas** da Azure, pre
 | Componente | Descrição | Tipo | Instância | Custo Estimado (mês) |
 |------------|-----------|------|-----------|----------------------|
 | **Azure Key Vault** | Armazena credenciais, certificados e segredos. | Cofre de Segredos | Standard | **US$ 10 - US$ 20** |
+| **Azure Entra ID (Antigo Azure AD)** | Gerenciamento de identidade e autenticação. | Standard | P1 | **US$ 60 - US$ 100** |
 
 ---
 
@@ -74,21 +76,24 @@ A seguir, apresentamos **diferentes cenários** para a solução, considerando *
 - **Requisições**: 500.000/mês (~17.000/dia)
 - **Uso normal de banco de dados e cache**
 - **RabbitMQ com carga moderada**
-- **Estimativa de Custo**: **US$ 1.500 - US$ 2.500/mês**
+- **APIM processando requisições sem necessidade de escalabilidade**
+- **Estimativa de Custo**: **US$ 2.500 - US$ 4.000/mês**
 
 ### 📌 **Cenário 2: Escala Média**
 - **Requisições**: 2.000.000/mês (~67.000/dia)
 - **Escalonamento horizontal (2-3 instâncias de API e Workers)**
 - **Banco transacional precisa de mais DTUs**
 - **RabbitMQ processando maior volume de mensagens**
-- **Estimativa de Custo**: **US$ 3.500 - US$ 5.000/mês**
+- **APIM lidando com maior carga, podendo exigir escalonamento**
+- **Estimativa de Custo**: **US$ 5.000 - US$ 7.000/mês**
 
 ### 📌 **Cenário 3: Pico de Tráfego**
 - **Requisições**: 10.000.000/mês (~333.000/dia)
 - **Escalonamento máximo (5-7 instâncias de API e Workers)**
 - **RabbitMQ com filas de alta prioridade**
 - **Azure SQL precisa ser escalado para instâncias superiores (P1, P2)**
-- **Estimativa de Custo**: **US$ 8.000 - US$ 12.000/mês**
+- **APIM precisará de uma camada adicional para balanceamento**
+- **Estimativa de Custo**: **US$ 10.000 - US$ 15.000/mês**
 
 ---
 
@@ -98,5 +103,9 @@ A seguir, apresentamos **diferentes cenários** para a solução, considerando *
 ✅ **Uso de Caching**: Reduz chamadas ao banco de dados, otimizando custos.  
 ✅ **Adoção de Mensageria**: RabbitMQ reduz o acoplamento e melhora resiliência.  
 ✅ **Infraestrutura como Código (IaC)**: Deploy automatizado e redução de custos.  
+✅ **APIM substitui a necessidade de Ocelot** para segurança, rate limit e roteamento.
 
-
+📌 **Possíveis Reduções de Custo**:
+- Utilizar **planos menores do Azure SQL em horários de menor demanda**.
+- Configurar **APIM para autoescalar somente quando necessário**.
+- Avaliar **substituir Redis Cache Premium por uma opção mais barata, dependendo da carga real**.
