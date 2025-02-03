@@ -10,7 +10,7 @@ A solução foi projetada para ser **escalável, resiliente e segura**, permitin
 
 ## 2️⃣ Visão Geral da Arquitetura  
 
-A solução segue um modelo baseado em **Microserviços** e **CQRS (Command Query Responsibility Segregation)**, utilizando **RabbitMQ para comunicação assíncrona** e **Redis para otimização de consultas**.
+A solução segue um modelo baseado em **Microserviços** e **CQRS (Command Query Responsibility Segregation)**, utilizando **RabbitMQ para comunicação assíncrona**, **Redis para otimização de consultas** e **Azure API Management (APIM) para expor APIs de forma segura e eficiente**.
 
 📌 **Diagrama da Arquitetura Geral:**  
 ![Arquitetura Geral](../images/diagrama_solucao.png)
@@ -18,6 +18,15 @@ A solução segue um modelo baseado em **Microserviços** e **CQRS (Command Quer
 ---
 
 ## 3️⃣ Componentes Principais  
+
+### **🌐 Azure API Management (APIM)**  
+📌 Camada de **exposição e gerenciamento** das APIs.  
+✅ **Segurança** via **Azure AD e Rate Limiting**.  
+✅ **Cache de respostas** para reduzir carga sobre as APIs.  
+✅ **Logging centralizado** e rastreamento de requisições.  
+✅ **Redirecionamento de tráfego** para diferentes versões das APIs.  
+
+---
 
 ### **📝 API de Controle de Lançamentos** (`ApiControleLancamentos`)  
 📌 Responsável pelo registro de **créditos e débitos**.  
@@ -39,14 +48,7 @@ A solução segue um modelo baseado em **Microserviços** e **CQRS (Command Quer
 📌 Responsável por **fornecer dados consolidados e exportação de relatórios**.  
 ✅ Expondo uma **API REST** para consulta de lançamentos e saldos diários.  
 ✅ Utilizando **Redis Cache** para otimizar consultas frequentes.  
-✅ Recuperando dados do **banco analítico (para consultas rápidas)** e **transacional (para detalhes)**.  
-
----
-
-### **📂 Geração Automática de Relatórios** (`Azure Function`)  
-📌 Responsável por **automatizar a geração de relatórios financeiros diários**.  
-✅ Disparada via **Timer Trigger**.  
-✅ Requisição à **API de Relatórios** para consolidar dados.  
+✅ Recuperando dados apenas do **banco analítico**.  
 
 ---
 
@@ -65,7 +67,6 @@ A solução segue um modelo baseado em **Microserviços** e **CQRS (Command Quer
 
 A comunicação entre os serviços é **assíncrona**, utilizando **RabbitMQ** para desacoplar os componentes e garantir **resiliência**.
 
-### 📌 **RabbitMQ - Comunicação Assíncrona**
 📌 **Exemplo de Fluxo de Mensagens**:
 
 1️⃣ **API de Controle de Lançamentos** publica um evento de novo lançamento no **RabbitMQ**.  
@@ -74,11 +75,6 @@ A comunicação entre os serviços é **assíncrona**, utilizando **RabbitMQ** p
 
 📌 **Diagrama:**  
 ![Fluxo de Mensageria](../images/fluxo-de-mensageria.png)
-
-### 📌 **Dead Letter Queue (DLQ)**
-📌 **Objetivo:** Garantir que mensagens falhas não sejam perdidas.  
-✅ Quando uma mensagem **não pode ser processada** pelo **Worker Consolidado**, ela é enviada para a **DLQ**.  
-✅ O **Admin** pode **reprocessar** ou **investigar falhas manualmente**.  
 
 ---
 
@@ -94,6 +90,7 @@ A arquitetura adota **boas práticas de segurança**, garantindo que **apenas us
 | **Autorização**               | JWT Token baseado em permissões |
 | **Segurança de Comunicação**  | TLS 1.2/1.3 obrigatório |
 | **Armazenamento Seguro de Credenciais** | Azure Key Vault |
+| **Proteção contra ataques**   | Rate Limiting no APIM |
 | **Criptografia de Dados**     | Transparent Data Encryption (TDE) |
 
 📄 **Leia mais:** [Arquitetura de Segurança](./arquitetura-seguranca.md)
@@ -108,6 +105,7 @@ A solução foi projetada para **escalar horizontalmente** e garantir **alta dis
 📌 **APIs e Workers podem rodar em múltiplas instâncias**.  
 📌 **RabbitMQ distribui mensagens entre múltiplos Workers** para balancear a carga.  
 📌 **Redis Cache reduz a carga sobre o banco de dados** ao armazenar consultas frequentes.  
+📌 **Azure API Management (APIM) gerencia requisições e aplica caching inteligente**.  
 
 ### **✅ Resiliência**
 📌 **Dead Letter Queue (DLQ) evita perda de mensagens** em caso de falhas.  
@@ -122,9 +120,9 @@ A solução implementa **observabilidade completa**, permitindo **rastrear métr
 
 | Ferramenta             | Finalidade |
 |------------------------|-------------------------------------------|
+| **Azure API Management Logs** | Monitoramento centralizado das APIs. |
 | **Prometheus + Grafana** | Coleta e visualiza métricas de performance. |
 | **Azure Application Insights** | Monitoramento de tempo de resposta e falhas. |
-| **ELK Stack (Elasticsearch, Logstash, Kibana)** | Armazena e exibe logs estruturados. |
 | **OpenTelemetry** | Rastreia chamadas distribuídas entre os serviços. |
 
 📄 **Leia mais:** [Monitoramento e Observabilidade](../monitoramento/monitoramento-observabilidade.md)
@@ -135,12 +133,13 @@ A solução implementa **observabilidade completa**, permitindo **rastrear métr
 
 A arquitetura da solução **Fluxo de Caixa Diário** combina **boas práticas de design, mensageria assíncrona, observabilidade e segurança**, garantindo que o sistema seja **escalável, resiliente e preparado para produção**.
 
-✅ **Próximos passos:**  
-- 🔹 **Refinamento da API de Relatórios** para otimizar queries.  
-- 🔹 **Configuração avançada de alertas e métricas** no Grafana.  
-- 🔹 **Melhoria no processamento da DLQ** para reprocessamento automático.  
+✅ **Principais melhorias com APIM**:  
+- **Maior segurança e controle sobre APIs** (OAuth 2.0, Rate Limiting).  
+- **Gerenciamento centralizado das APIs** (Monitoramento, Versionamento).  
+- **Redução da carga nas APIs** (Caching de respostas).  
 
 📄 **Referências complementares:**  
 - [ADR-006: Decisão de Uso do RabbitMQ](../adrs/ADR-006-Decisao-Usar-RabbitMQ.md)  
+- [ADR-009: Decisão de Uso do Azure API Management](../adrs/ADR-009-Decisao-Sobre-Uso-APIM.md)  
 - [Requisitos Não-Funcionais](../requisitos/naofuncionais/requisitos-nao-funcionais.md)  
 - [DevOps e Deploy](../devops/devops-deploy.md)  
