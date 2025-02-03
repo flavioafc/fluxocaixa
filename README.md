@@ -124,7 +124,7 @@ A solução possui **logs estruturados, métricas e rastreamento distribuído** 
 
 🚀 **DevOps e Infraestrutura**:
 - [DevOps e Deploy](./docs/devops/devops-deploy.md)  
-- [Infraestrutura como Código (Terraform)](./docs/devops/Terraform.md)  
+- [Infraestrutura como Código (Terraform)](./docs/devops/iac-provisionamento.md)  
 - [Setup Local](./docs/setup/setup-local.md)  
 
 📊 **Monitoramento e Observabilidade**:
