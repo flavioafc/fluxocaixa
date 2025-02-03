@@ -113,5 +113,5 @@ Além dos **contextos de negócio**, a solução conta com uma **camada de infra
 
 📄 **Documentação Relacionada**:
 - [Arquitetura Geral](../arquitetura/arquitetura-geral.md)  
-- [Requisitos Não-Funcionais](../requisitos/RequisitosNaoFuncionais.md)  
+- [Requisitos Não-Funcionais](../requisitos/naofuncionais/requisitos-nao-funcionais.md)  
 - [Segurança e Autenticação](../arquitetura/arquitetura-seguranca.md)  
