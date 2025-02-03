@@ -29,10 +29,15 @@ O **Worker Consolidado** e o **RabbitMQ** continuarão funcionando internamente 
 A adoção do **Azure API Management (APIM)** traz os seguintes benefícios:
 
 ✅ **Segurança Aprimorada**: Camada de proteção antes das APIs, controlando acessos e permissões.
+
 ✅ **Gestão Centralizada**: Controle unificado de endpoints, versões de API e políticas de acesso.
+
 ✅ **Escalabilidade**: Capacidade de gerenciar alto volume de chamadas de forma eficiente.
+
 ✅ **Observabilidade e Monitoramento**: Logs detalhados de consumo de APIs.
+
 ✅ **Rate Limiting**: Controle de acessos abusivos e proteção contra DDoS.
+
 ✅ **Caching para Relatórios**: Redução de carga no banco de dados analítico.
 
 ---
